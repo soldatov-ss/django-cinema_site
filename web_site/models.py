@@ -60,14 +60,15 @@ class Movie(models.Model):
     directors = models.ManyToManyField(Actor, verbose_name="режиссер", related_name="film_director")
     actors = models.ManyToManyField(Actor, verbose_name="актеры", related_name="film_actor")
     genres = models.ManyToManyField(Genre, verbose_name="жанры")
-    world_premiere = models.DateField("Примьера в мире", default=date.today)
-    budget = models.PositiveIntegerField("Бюджет", default=0,
-                                         help_text="указывать сумму в долларах")
+    world_premiere = models.DateField("Премьера в мире", default=date.today)
+    budget = models.PositiveIntegerField("Бюджет", default=0, help_text="сумма в долларах")
+    likes = models.BigIntegerField('Понравилось', default=0)
+    kinopoisk_rating = models.FloatField(verbose_name='Рейтинг Кинопоиск', default=0)
     fees_in_usa = models.PositiveIntegerField(
-        "Сборы в США", default=0, help_text="указывать сумму в долларах"
+        "Сборы в США", default=0, help_text="сумма в долларах"
     )
     fess_in_world = models.PositiveIntegerField(
-        "Сборы в мире", default=0, help_text="указывать сумму в долларах"
+        "Сборы в мире", default=0, help_text="сумма в долларах"
     )
     category = models.ForeignKey(
         Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True
