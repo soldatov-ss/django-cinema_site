@@ -26,3 +26,4 @@ class MoviesView(View):
 class SingleMovieView(DetailView):
     model = Movie
     template_name = 'web_site/movie_detail.html'
+    context_object_name = 'movie'

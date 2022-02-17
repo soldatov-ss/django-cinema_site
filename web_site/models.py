@@ -64,15 +64,10 @@ class Movie(models.Model):
     budget = models.PositiveIntegerField("Бюджет", default=0, help_text="сумма в долларах")
     likes = models.BigIntegerField('Понравилось', default=0)
     kinopoisk_rating = models.FloatField(verbose_name='Рейтинг Кинопоиск', default=0)
-    fees_in_usa = models.PositiveIntegerField(
-        "Сборы в США", default=0, help_text="сумма в долларах"
-    )
-    fess_in_world = models.PositiveIntegerField(
-        "Сборы в мире", default=0, help_text="сумма в долларах"
-    )
-    category = models.ForeignKey(
-        Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True
-    )
+    running_time = models.FloatField('Продолжительность', default=0)
+    fees_in_usa = models.PositiveIntegerField("Сборы в США", default=0, help_text="сумма в долларах")
+    fess_in_world = models.PositiveIntegerField("Сборы в мире", default=0, help_text="сумма в долларах")
+    category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True)
     slug = models.SlugField(max_length=130, unique=True)
     draft = models.BooleanField("Черновик", default=False)
 
@@ -92,7 +87,7 @@ class Movie(models.Model):
 
 class MovieShots(models.Model):
     title = models.CharField("Заголовок", max_length=100)
-    description = models.TextField("Описание")
+    description = models.TextField("Описание", blank=True)
     image = models.ImageField("Изображение", upload_to="movie_shots/")
     movie = models.ForeignKey(Movie, verbose_name="Фильм", on_delete=models.CASCADE)
 

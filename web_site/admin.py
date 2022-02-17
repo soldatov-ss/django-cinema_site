@@ -10,7 +10,7 @@ class GenreAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('slug',)}
 
 class CategoryAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('slug',)}
+    prepopulated_fields = {'slug': ('name',)}
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Actor)
