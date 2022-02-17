@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', CarouselMoviesView.as_view(), name='carousel_home')
+    path('', MoviesView.as_view(), name='carousel_home'),
+    path('<slug:slug>/', SingleMovieView.as_view(), name='movie_detail'),
 
 ]

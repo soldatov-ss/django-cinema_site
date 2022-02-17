@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap-reboot.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plyr.css' %}">
+    <link rel="stylesheet" href="{% static 'css/photoswipe.css' %}">
+    <link rel="stylesheet" href="{% static 'css/default-skin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="{% static 'icon/favicon-32x32.png" sizes="32x32' %}">
+    <link rel="apple-touch-icon" href="{% static 'icon/favicon-32x32.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'icon/apple-touch-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'icon/apple-touch-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'icon/apple-touch-icon-144x144.png' %}">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>{% block title%} {% endblock %}</title>
+
+</head>
+<body class="body">
+{% include 'inc/_header.html' %}
+
+{% block content %}{% endblock %}
+
+{% include 'inc/_footer.html' %}
+<!-- JS -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.mousewheel.min.js' %}"></script>
+<script src="{% static 'js/jquery.mCustomScrollbar.min.js' %}"></script>
+<script src="{% static 'js/wNumb.js' %}"></script>
+<script src="{% static 'js/nouislider.min.js' %}"></script>
+<script src="{% static 'js/plyr.min.js' %}"></script>
+<script src="{% static 'js/jquery.morelines.min.js' %}"></script>
+<script src="{% static 'js/photoswipe.min.js' %}"></script>
+<script src="{% static 'js/photoswipe-ui-default.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

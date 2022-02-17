@@ -9,8 +9,8 @@ from django.urls import reverse
 
 class Category(models.Model):
     name = models.CharField("Категория", max_length=150)
-    description = models.TextField("Описание")
-    url = models.SlugField(max_length=160, unique=True)
+    description = models.TextField("Описание", blank=True)
+    slug = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
         return self.name
@@ -39,8 +39,8 @@ class Actor(models.Model):
 
 class Genre(models.Model):
     name = models.CharField("Имя", max_length=100)
-    description = models.TextField("Описание")
-    url = models.SlugField(max_length=160, unique=True)
+    description = models.TextField("Описание", blank=True)
+    slug = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
         return self.name
@@ -73,14 +73,14 @@ class Movie(models.Model):
     category = models.ForeignKey(
         Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True
     )
-    url = models.SlugField(max_length=130, unique=True)
+    slug = models.SlugField(max_length=130, unique=True)
     draft = models.BooleanField("Черновик", default=False)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("movie_detail", kwargs={"slug": self.url})
+        return reverse("movie_detail", kwargs={"slug": self.slug})
 
     def get_review(self):
         return self.reviews_set.filter(parent__isnull=True)
