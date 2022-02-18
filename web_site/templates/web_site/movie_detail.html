@@ -22,11 +22,11 @@ Single page
             <!-- end title -->
 
             <!-- content -->
-            <div class="col-12 col-xl-6">
-                <div class="card card--details">
+            <div class="col-10">
+                <div class="card card--details card--series">
                     <div class="row">
                         <!-- card cover -->
-                        <div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5">
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
                             <div class="card__cover">
                                 <img src="{{ movie.poster.url }}" alt="">
                             </div>
@@ -34,7 +34,7 @@ Single page
                         <!-- end card cover -->
 
                         <!-- card content -->
-                        <div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-7">
+                        <div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-9">
                             <div class="card__content">
                                 <div class="card__wrap">
                                     <span class="card__rate"><i class="icon ion-ios-star"></i>{{ movie.kinopoisk_rating }}</span>
@@ -49,9 +49,9 @@ Single page
                                         {% for item in movie.genres.all %}
                                         <a href="#">{{ item.name|title }}</a>
                                         {% endfor %}
-                                    <li><span>Дата выхода: </span> {{ movie.year }}</li>
-                                    <li><span>Продолжительность:</span> {{ movie.running_time }} мин.</li>
-                                    <li><span>Страна</span> <a href="#">{{ movie.country }}</a></li>
+                                    <li><span>Премьера в мире:</span> {{ movie.world_premiere }}</li>
+                                    <li><span>Продолжительность:</span> {{ movie.running_time}}</li>
+                                    <li><span>Страна:</span> <a href="#">{{ movie.country }}</a></li>
                                 </ul>
 
                                 <div class="card__description card__description--details">
@@ -66,7 +66,7 @@ Single page
             <!-- end content -->
 
             <!-- player -->
-            <div class="col-12 col-xl-6">
+            <div class="col-12 col-xl-12">
                 <video controls crossorigin playsinline
                        poster="../../../cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player">
                     <!-- Video files -->
@@ -83,13 +83,42 @@ Single page
                     <track kind="captions" label="English" srclang="en"
                            src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
                            default>
+                    <track kind="captions" label="Français" srclang="fr"
+                           src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
 
-                    <!-- Fallback for browsers that don't support the <video> element -->
                 </video>
             </div>
             <!-- end player -->
 
 
+            <div class="col-12">
+                <div class="details__wrap">
+                    <!-- availables -->
+                    <div class="details__devices">
+                        <span class="details__devices-title">Available on devices:</span>
+                        <ul class="details__devices-list">
+                            <li><i class="icon ion-logo-apple"></i><span>IOS</span></li>
+                            <li><i class="icon ion-logo-android"></i><span>Android</span></li>
+                            <li><i class="icon ion-logo-windows"></i><span>Windows</span></li>
+                            <li><i class="icon ion-md-tv"></i><span>Smart TV</span></li>
+                        </ul>
+                    </div>
+                    <!-- end availables -->
+
+                    <!-- share -->
+                    <div class="details__share">
+                        <span class="details__share-title">Share with friends:</span>
+
+                        <ul class="details__share-list">
+                            <li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
+                            <li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
+                            <li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
+                            <li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- end share -->
+                </div>
+            </div>
         </div>
     </div>
     <!-- end details content -->
@@ -369,15 +398,19 @@ Single page
                                         </li>
                                     </ul>
 
-                                    <form action="#" class="form">
-                                        <input type="text" class="form__input" placeholder="Title">
-                                        <textarea class="form__textarea" placeholder="Review"></textarea>
+                                    <form action="{% url 'add_review' movie.id %}" method="post" class="form">
+                                        {% csrf_token %}
+                                        <input type="text" class="form__input" placeholder="Email" name="email">
+                                        <input type="text" class="form__input" placeholder="Ваше имя" name="name">
+
+                                        <textarea class="form__textarea" placeholder="Отзыв" name="text"></textarea>
                                         <div class="form__slider">
                                             <div class="form__slider-rating" id="slider__rating"></div>
                                             <div class="form__slider-value" id="form__slider-value"></div>
                                         </div>
-                                        <button type="button" class="form__btn">Send</button>
+                                        <button type="submit" class="form__btn">Отправить</button>
                                     </form>
+
                                 </div>
                             </div>
                             <!-- end reviews -->

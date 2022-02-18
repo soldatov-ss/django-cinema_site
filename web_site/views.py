@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
+from web_site.forms import ReviewForm
 from web_site.models import Movie, Genre
 
 
@@ -27,3 +28,14 @@ class SingleMovieView(DetailView):
     model = Movie
     template_name = 'web_site/movie_detail.html'
     context_object_name = 'movie'
+
+
+class AddReview(View):
+    def post(self, request, pk):
+        form = ReviewForm(request.POST)
+        movie = Movie.objects.get(id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.movie = movie
+            form.save()
+        return redirect(movie.get_absolute_url())
