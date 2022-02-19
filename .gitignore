@@ -7,7 +7,7 @@ __pycache__/
 *.so
 media/actors/
 media/movies/
-
+media/movie_shots/
 # Distribution / packaging
 .Python
 build/

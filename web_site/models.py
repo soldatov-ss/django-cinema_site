@@ -23,8 +23,8 @@ class Category(models.Model):
 class Actor(models.Model):
     name = models.CharField("Имя", max_length=100)
     age = models.PositiveSmallIntegerField("Возраст", default=0)
-    description = models.TextField("Описание")
-    image = models.ImageField("Изображение", upload_to="actors/")
+    description = models.TextField("Описание", blank=True)
+    image = models.ImageField("Изображение", upload_to="actors/", blank=True)
 
     def __str__(self):
         return self.name
@@ -52,7 +52,7 @@ class Genre(models.Model):
 
 class Movie(models.Model):
     title = models.CharField("Название", max_length=100)
-    tagline = models.CharField("Слоган", max_length=100, default='')
+    tagline = models.CharField("Слоган", max_length=100, blank=True, default='')
     description = models.TextField("Описание")
     poster = models.ImageField("Постер", upload_to="movies/")
     year = models.PositiveSmallIntegerField("Дата выхода", default=2019)
