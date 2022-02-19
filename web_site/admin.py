@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import Actor, Category, Movie, Genre, Reviews, Rating, RatingStar, MovieShots
 
@@ -9,27 +10,49 @@ class ReviewInline(admin.TabularInline):
     readonly_fields = ('name', 'email', 'movie', 'parent')
 
 
+class MovieShortsInline(admin.TabularInline):
+    model = MovieShots
+    extra = 1
+    readonly_fields = ('get_image',)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.image.url} width="100" height="110">')
+
+    get_image.short_description = 'Фото'
+
+
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('slug',)}
     list_display = ('title', 'category', 'kinopoisk_rating', 'year', 'slug')
     list_filter = ('category', 'kinopoisk_rating', 'year', 'genres')
     search_fields = ('title', 'category__name')
+    readonly_fields = ('get_poster',)
     save_on_top = True
-    inlines = [ReviewInline]
+    inlines = [MovieShortsInline, ReviewInline]
     fields = (
-        ('title', 'tagline'), ('description'), ('poster'), ('year', 'world_premiere', 'country'),
+        ('title', 'tagline'), ('description'), ('poster', 'get_poster'), ('year', 'world_premiere', 'country'),
         ('directors', 'actors', 'genres',),
         ('budget', 'fees_in_usa', 'fess_in_world',), ('likes', 'kinopoisk_rating',), ('category', 'running_time'),
         ('slug', 'draft')
     )
 
+    def get_poster(self, obj):
+        return mark_safe(f'<img src={obj.poster.url} width="50" height="60">')
+
+    get_poster.short_description = 'Постер'
+
 
 @admin.register(Actor)
 class ActorAdmin(admin.ModelAdmin):
     list_display = ('name', 'age')
+    readonly_fields = ('get_image',)
     list_display_links = ('name', 'age')
-    search_fields = ('name',)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.image.url} width="50" height="60">')
+
+    get_image.short_description = 'Фото'
 
 
 @admin.register(Genre)
@@ -54,9 +77,15 @@ class ReviewsAdmin(admin.ModelAdmin):
 
 @admin.register(MovieShots)
 class MovieShorts(admin.ModelAdmin):
-    list_display = ('title', 'movie')
+    list_display = ('title', 'movie', 'get_image')
     list_filter = ('title', 'movie')
     search_fields = ('movie', 'title')
+    readonly_fields = ('get_image',)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.image.url} width="50" height="60">')
+
+    get_image.short_description = 'Фото'
 
 
 admin.site.register(RatingStar)
