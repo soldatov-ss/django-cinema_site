@@ -128,11 +128,12 @@ class Reviews(models.Model):
     email = models.EmailField()
     name = models.CharField("Имя", max_length=100)
     text = models.TextField("Сообщение", max_length=5000)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     parent = models.ForeignKey('self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True)
     movie = models.ForeignKey(Movie, verbose_name="фильм", on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Фильм: ({self.movie}) - Юзер: ({self.name}) - Отзыв: {self.text[:80]}"
+        return f"{self.movie} -{self.name}"
 
     class Meta:
         verbose_name = "Отзыв"

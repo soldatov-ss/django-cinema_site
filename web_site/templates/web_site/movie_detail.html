@@ -138,18 +138,14 @@ Single page
 
                     <!-- content tabs nav -->
                     <ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
+
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1"
-                               aria-selected="true">Comments</a>
+                               aria-selected="false">Отзывы</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2"
-                               aria-selected="false">Reviews</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3"
                                aria-selected="false">Кадры с фильма</a>
                         </li>
                     </ul>
@@ -165,16 +161,13 @@ Single page
 
                         <div class="content__mobile-tabs-menu dropdown-menu" aria-labelledby="mobile-tabs">
                             <ul class="nav nav-tabs" role="tablist">
-                                <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab"
-                                                        href="#tab-1" role="tab" aria-controls="tab-1"
-                                                        aria-selected="true">Comments</a></li>
+
+                                <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab" href="#tab-1"
+                                                        role="tab" aria-controls="tab-1"
+                                                        aria-selected="false">Отзывы</a></li>
 
                                 <li class="nav-item"><a class="nav-link" id="2-tab" data-toggle="tab" href="#tab-2"
                                                         role="tab" aria-controls="tab-2"
-                                                        aria-selected="false">Reviews</a></li>
-
-                                <li class="nav-item"><a class="nav-link" id="3-tab" data-toggle="tab" href="#tab-3"
-                                                        role="tab" aria-controls="tab-3"
                                                         aria-selected="false">Кадры с фильма</a></li>
                             </ul>
                         </div>
@@ -190,220 +183,35 @@ Single page
             <div class="col-12 col-lg-8 col-xl-8">
                 <!-- content tabs -->
                 <div class="tab-content" id="myTabContent">
+
                     <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
-                        <div class="row">
-                            <!-- comments -->
-                            <div class="col-12">
-                                <div class="comments">
-                                    <ul class="comments__list">
-                                        <li class="comments__item">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="img/user.png" alt="">
-                                                <span class="comments__name">John Doe</span>
-                                                <span class="comments__time">30.08.2018, 17:53</span>
-                                            </div>
-                                            <p class="comments__text">There are many variations of passages of Lorem
-                                                Ipsum available, but the majority have suffered alteration in some form,
-                                                by injected humour, or randomised words which don't look even slightly
-                                                believable. If you are going to use a passage of Lorem Ipsum, you need
-                                                to be sure there isn't anything embarrassing hidden in the middle of
-                                                text.</p>
-                                            <div class="comments__actions">
-                                                <div class="comments__rate">
-                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>12
-                                                    </button>
-
-                                                    <button type="button">7<i class="icon ion-md-thumbs-down"></i>
-                                                    </button>
-                                                </div>
-
-                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply
-                                                </button>
-                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
-                                            </div>
-                                        </li>
-
-                                        <li class="comments__item comments__item--answer">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="img/user.png" alt="">
-                                                <span class="comments__name">John Doe</span>
-                                                <span class="comments__time">24.08.2018, 16:41</span>
-                                            </div>
-                                            <p class="comments__text">Lorem Ipsum is simply dummy text of the printing
-                                                and typesetting industry. Lorem Ipsum has been the industry's standard
-                                                dummy text ever since the 1500s, when an unknown printer took a galley
-                                                of type and scrambled it to make a type specimen book.</p>
-                                            <div class="comments__actions">
-                                                <div class="comments__rate">
-                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>8
-                                                    </button>
-
-                                                    <button type="button">3<i class="icon ion-md-thumbs-down"></i>
-                                                    </button>
-                                                </div>
-
-                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply
-                                                </button>
-                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
-                                            </div>
-                                        </li>
-
-                                        <li class="comments__item comments__item--quote">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="img/user.png" alt="">
-                                                <span class="comments__name">John Doe</span>
-                                                <span class="comments__time">11.08.2018, 11:11</span>
-                                            </div>
-                                            <p class="comments__text"><span>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</span>It
-                                                has survived not only five centuries, but also the leap into electronic
-                                                typesetting, remaining essentially unchanged. It was popularised in the
-                                                1960s with the release of Letraset sheets containing Lorem Ipsum
-                                                passages, and more recently with desktop publishing software like Aldus
-                                                PageMaker including versions of Lorem Ipsum.</p>
-                                            <div class="comments__actions">
-                                                <div class="comments__rate">
-                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>11
-                                                    </button>
-
-                                                    <button type="button">1<i class="icon ion-md-thumbs-down"></i>
-                                                    </button>
-                                                </div>
-
-                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply
-                                                </button>
-                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
-                                            </div>
-                                        </li>
-
-                                        <li class="comments__item">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="img/user.png" alt="">
-                                                <span class="comments__name">John Doe</span>
-                                                <span class="comments__time">07.08.2018, 14:33</span>
-                                            </div>
-                                            <p class="comments__text">There are many variations of passages of Lorem
-                                                Ipsum available, but the majority have suffered alteration in some form,
-                                                by injected humour, or randomised words which don't look even slightly
-                                                believable. If you are going to use a passage of Lorem Ipsum, you need
-                                                to be sure there isn't anything embarrassing hidden in the middle of
-                                                text.</p>
-                                            <div class="comments__actions">
-                                                <div class="comments__rate">
-                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>99
-                                                    </button>
-
-                                                    <button type="button">35<i class="icon ion-md-thumbs-down"></i>
-                                                    </button>
-                                                </div>
-
-                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply
-                                                </button>
-                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
-                                            </div>
-                                        </li>
-
-                                        <li class="comments__item">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="img/user.png" alt="">
-                                                <span class="comments__name">John Doe</span>
-                                                <span class="comments__time">02.08.2018, 15:24</span>
-                                            </div>
-                                            <p class="comments__text">Many desktop publishing packages and web page
-                                                editors now use Lorem Ipsum as their default model text, and a search
-                                                for 'lorem ipsum' will uncover many web sites still in their infancy.
-                                                Various versions have evolved over the years, sometimes by accident,
-                                                sometimes on purpose (injected humour and the like).</p>
-                                            <div class="comments__actions">
-                                                <div class="comments__rate">
-                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>74
-                                                    </button>
-
-                                                    <button type="button">13<i class="icon ion-md-thumbs-down"></i>
-                                                    </button>
-                                                </div>
-
-                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply
-                                                </button>
-                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                    <form action="#" class="form">
-                                        <textarea id="text" name="text" class="form__textarea"
-                                                  placeholder="Add comment"></textarea>
-                                        <button type="button" class="form__btn">Send</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- end comments -->
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
                         <div class="row">
                             <!-- reviews -->
                             <div class="col-12">
                                 <div class="reviews">
                                     <ul class="reviews__list">
+                                        {% for review in movie.reviews_set.all %}
                                         <li class="reviews__item">
                                             <div class="reviews__autor">
-                                                <img class="reviews__avatar" src="img/user.png" alt="">
-                                                <span class="reviews__name">Best Marvel movie in my opinion</span>
-                                                <span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
+                                                <img class="reviews__avatar" src="{% static 'img/user.png' %}" alt="">
+                                                <span class="reviews__time">{{ review.created_at }} by {{ review.name }}</span>
 
                                                 <span class="reviews__rating"><i
                                                         class="icon ion-ios-star"></i>8.4</span>
                                             </div>
-                                            <p class="reviews__text">There are many variations of passages of Lorem
-                                                Ipsum available, but the majority have suffered alteration in some form,
-                                                by injected humour, or randomised words which don't look even slightly
-                                                believable. If you are going to use a passage of Lorem Ipsum, you need
-                                                to be sure there isn't anything embarrassing hidden in the middle of
-                                                text.</p>
+                                            <p class="reviews__text">{{ review.text }}</p>
+                                            <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a>
                                         </li>
-
-                                        <li class="reviews__item">
-                                            <div class="reviews__autor">
-                                                <img class="reviews__avatar" src="img/user.png" alt="">
-                                                <span class="reviews__name">Best Marvel movie in my opinion</span>
-                                                <span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
-
-                                                <span class="reviews__rating"><i
-                                                        class="icon ion-ios-star"></i>9.0</span>
-                                            </div>
-                                            <p class="reviews__text">There are many variations of passages of Lorem
-                                                Ipsum available, but the majority have suffered alteration in some form,
-                                                by injected humour, or randomised words which don't look even slightly
-                                                believable. If you are going to use a passage of Lorem Ipsum, you need
-                                                to be sure there isn't anything embarrassing hidden in the middle of
-                                                text.</p>
-                                        </li>
-
-                                        <li class="reviews__item">
-                                            <div class="reviews__autor">
-                                                <img class="reviews__avatar" src="img/user.png" alt="">
-                                                <span class="reviews__name">Best Marvel movie in my opinion</span>
-                                                <span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
-
-                                                <span class="reviews__rating"><i
-                                                        class="icon ion-ios-star"></i>7.5</span>
-                                            </div>
-                                            <p class="reviews__text">There are many variations of passages of Lorem
-                                                Ipsum available, but the majority have suffered alteration in some form,
-                                                by injected humour, or randomised words which don't look even slightly
-                                                believable. If you are going to use a passage of Lorem Ipsum, you need
-                                                to be sure there isn't anything embarrassing hidden in the middle of
-                                                text.</p>
-                                        </li>
+                                        {% endfor %}
                                     </ul>
 
-                                    <form action="{% url 'add_review' movie.id %}" method="post" class="form">
+                                    <form action="{% url 'add_review' movie.id %}" method="post" class="form" id="formReview">
+                                        <input type="hidden" value='' name="parent" id="contactparent">
                                         {% csrf_token %}
                                         <input type="text" class="form__input" placeholder="Email" name="email">
                                         <input type="text" class="form__input" placeholder="Ваше имя" name="name">
 
-                                        <textarea class="form__textarea" placeholder="Отзыв" name="text"></textarea>
+                                        <textarea class="form__textarea" placeholder="Отзыв" name="text" id="contactcomment"></textarea>
                                         <div class="form__slider">
                                             <div class="form__slider-rating" id="slider__rating"></div>
                                             <div class="form__slider-value" id="form__slider-value"></div>
@@ -417,7 +225,7 @@ Single page
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="3-tab">
+                    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
                         <!-- project gallery -->
                         <div class="gallery" itemscope>
                             <div class="row">
@@ -580,5 +388,11 @@ Single page
     </div>
 </section>
 <!-- end content -->
+ <script>
+        function addReview(name, id) {
+            document.getElementById("contactparent").value = id;
+            document.getElementById("contactcomment").innerText = `${name}, `
+        }
 
+    </script>
 {% endblock %}
