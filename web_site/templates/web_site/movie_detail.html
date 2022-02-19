@@ -188,20 +188,38 @@ Single page
                         <div class="row">
                             <!-- reviews -->
                             <div class="col-12">
-                                <div class="reviews">
-                                    <ul class="reviews__list">
+                                <div class="comments">
+                                    <ul class="comments__list">
                                         {% for review in movie.reviews_set.all %}
-                                        <li class="reviews__item">
-                                            <div class="reviews__autor">
-                                                <img class="reviews__avatar" src="{% static 'img/user.png' %}" alt="">
-                                                <span class="reviews__time">{{ review.created_at }} by {{ review.name }}</span>
+                                        <li class="comments__item">
+                                            <div class="comments__autor">
+                                                <img class="comments__avatar" src="{% static 'img/user.png' %}" alt="">
+                                                <span class="comments__name">{{ review.name }}</span>
+                                                <span class="comments__time">{{ review.created_at }}</span>
 
-                                                <span class="reviews__rating"><i
-                                                        class="icon ion-ios-star"></i>8.4</span>
+                                                <span class="reviews__rating"><i class="icon ion-ios-star"></i>8.4</span>
                                             </div>
                                             <p class="reviews__text">{{ review.text }}</p>
-                                            <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">Ответить</a>
+                                            <div class="comments__actions">
+                                                     <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">
+                                                         <button type="button"><i class="icon ion-ios-share-alt"></i>Ответить</button>
+                                                     </a>
+                                            </div>
+
                                         </li>
+<!--                                        {% if review.parent %}-->
+<!--                                        <li class="comments__item comments__item&#45;&#45;answer">-->
+<!--												<div class="comments__autor">-->
+<!--													<img class="comments__avatar" src="{% static 'img/user.png' %}" alt="">-->
+<!--													<span class="comments__name">{{ answer.name }}</span>-->
+<!--													<span class="comments__time">{{ answer.created_at }}</span>-->
+<!--												</div>-->
+<!--												<p class="comments__text">{{ answer.text }}</p>-->
+<!--												<div class="comments__actions">-->
+<!--													<button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>-->
+<!--												</div>-->
+<!--											</li>-->
+<!--                                        {% endif %}-->
                                         {% endfor %}
                                     </ul>
 
