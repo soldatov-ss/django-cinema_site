@@ -53,3 +53,14 @@ class ActorDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['actor_movie_lst'] = Movie.objects.filter(actors=self.object)[:12]
         return context
+
+class DirectorDetailView(DetailView):
+    model = Actor
+    template_name = 'web_site/directors_detail.html'
+    slug_field = 'name'
+    context_object_name = 'director'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['director_movie_lst'] = Movie.objects.filter(actors=self.object)[:12]
+        return context

@@ -52,12 +52,12 @@
                                     </li>
                                     <li><span>Режиссер:</span>
                                         {% for item in movie.directors.all %}
-                                        <a href="#">{{ item.name|title }}</a>
+                                        <a href="{% url 'director_detail' item.name %}">{{ item.name|title }}</a>
                                         {% endfor %}
                                     </li>
                                     <li><span>Актёры:</span>
                                         {% for item in movie.actors.all %}
-                                        <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
+                                        <a href="{{ item.get_absolute_url  }}">{{ item.name|title }}</a>
                                         {% endfor %}
                                     </li>
                                     <li><span>Премьера в мире:</span> {{ movie.world_premiere }}</li>
