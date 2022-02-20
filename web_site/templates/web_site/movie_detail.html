@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Single page
+{{ movie.title }}
 {% endblock %}
 
 {% block content %}
@@ -49,6 +49,17 @@ Single page
                                         {% for item in movie.genres.all %}
                                         <a href="#">{{ item.name|title }}</a>
                                         {% endfor %}
+                                    </li>
+                                    <li><span>Режиссер:</span>
+                                        {% for item in movie.directors.all %}
+                                        <a href="#">{{ item.name|title }}</a>
+                                        {% endfor %}
+                                    </li>
+                                    <li><span>Актёры:</span>
+                                        {% for item in movie.actors.all %}
+                                        <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
+                                        {% endfor %}
+                                    </li>
                                     <li><span>Премьера в мире:</span> {{ movie.world_premiere }}</li>
                                     <li><span>Продолжительность:</span> {{ movie.running_time}}</li>
                                     <li><span>Страна:</span> <a href="#">{{ movie.country }}</a></li>
@@ -93,17 +104,6 @@ Single page
 
             <div class="col-12">
                 <div class="details__wrap">
-                    <!-- availables -->
-                    <div class="details__devices">
-                        <span class="details__devices-title">Available on devices:</span>
-                        <ul class="details__devices-list">
-                            <li><i class="icon ion-logo-apple"></i><span>IOS</span></li>
-                            <li><i class="icon ion-logo-android"></i><span>Android</span></li>
-                            <li><i class="icon ion-logo-windows"></i><span>Windows</span></li>
-                            <li><i class="icon ion-md-tv"></i><span>Smart TV</span></li>
-                        </ul>
-                    </div>
-                    <!-- end availables -->
 
                     <!-- share -->
                     <div class="details__share">

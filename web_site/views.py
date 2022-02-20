@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView, CreateView
 
 from web_site.forms import ReviewForm
-from web_site.models import Movie, Genre
+from web_site.models import Movie, Genre, Actor
 
 
 class MoviesView(View):
@@ -41,3 +41,15 @@ class AddReview(View):
             form.movie = movie
             form.save()
         return redirect(movie.get_absolute_url())
+
+
+class ActorDetailView(DetailView):
+    model = Actor
+    template_name = 'web_site/actor_detail.html'
+    slug_field = 'name'
+    context_object_name = 'actor'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['actor_movie_lst'] = Movie.objects.filter(actors=self.object)[:12]
+        return context
