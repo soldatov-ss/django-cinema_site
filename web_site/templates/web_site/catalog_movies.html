@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Каталог фильмов
+{% endblock %}
+
+{% block content %}
+
+<!-- page title -->
+<section class="section section--first section--bg" data-bg="img/section/section.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__wrap">
+                    <!-- section title -->
+                    <h2 class="section__title">Каталог фильмов</h2>
+                    <!-- end section title -->
+                    <!-- breadcrumb -->
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb__item"><a href="{% url 'home' %}">Домой</a></li>
+                        <li class="breadcrumb__item breadcrumb__item--active">Каталог</li>
+                    </ul>
+                    <!-- end breadcrumb -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end page title -->
+
+<!-- filter -->
+<div class="filter">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="filter__content">
+                    <div class="filter__items">
+                        <!-- filter item -->
+                        <form action="{% url 'catalog' %}" method="get"
+                              style="display: flex; justify-content: space-between">
+                            <div class="filter__item" id="filter__genre">
+                                <span class="filter__item-label">Жанр:</span>
+
+                                <div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-genre"
+                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <input type="text" name="genres" value="Выберите жанр">
+                                    <span></span>
+                                </div>
+                                <ul class="filter__item-menu dropdown-menu scrollbar-dropdown"
+                                    aria-labelledby="filter-genre">
+                                    {% for genre in view.get_genres %}
+                                    <li>{{genre.name}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            <!-- filter btn -->
+                            <button class="filter__btn" type="submit">Найти</button>
+                            <!-- end filter btn -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container">
+        <!-- content tabs -->
+        <div class="tab-content" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
+                <div class="row">
+                    <!-- card -->
+                    {% for movie in movies %}
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="{{ movie.poster.url }}">
+                                <a href="{{ movie.get_absolute_url }}" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a>
+                                </h3>
+                                <span class="card__category">
+                                    {% for item in movie.genres.all|slice:":3" %}
+                                        <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
+                                    {% endfor %}
+									</span>
+                                <span class="card__rate"><i
+                                        class="icon ion-ios-star"></i>{{ movie.kinopoisk_rating }}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end card -->
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+        <!-- end content tabs -->
+    </div>
+</section>
+{% endblock %}

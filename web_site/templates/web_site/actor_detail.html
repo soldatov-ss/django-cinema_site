@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-{{ actor.name }}
+Актёр: {{ actor.name }}
 {% endblock %}
 
 {% block content %}
@@ -91,7 +91,7 @@
                                 </h3>
                                 <span class="card__category">
                                     {% for item in movie.genres.all|slice:":3" %}
-                                        <a href="#">{{ item.name|title }}</a>
+                                        <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
                                     {% endfor %}
 									</span>
                                 <span class="card__rate"><i class="icon ion-ios-star"></i>{{ movie.kinopoisk_rating }}</span>

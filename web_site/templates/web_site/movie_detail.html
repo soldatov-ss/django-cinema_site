@@ -47,7 +47,7 @@
                                 <ul class="card__meta">
                                     <li><span>Жанр:</span>
                                         {% for item in movie.genres.all %}
-                                        <a href="#">{{ item.name|title }}</a>
+                                        <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
                                         {% endfor %}
                                     </li>
                                     <li><span>Режиссер:</span>

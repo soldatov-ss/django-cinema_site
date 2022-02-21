@@ -8,20 +8,27 @@ from web_site.forms import ReviewForm
 from web_site.models import Movie, Genre, Actor
 
 
-class MoviesView(View):
+class MoviesFilter:
+
+    def get_genres(self):
+        return Genre.objects.all()
+
+
+
+class MoviesView(MoviesFilter, View):
     model = Movie
     template_name = 'web_site/index.html'
 
     def get(self, request):
-
-        carousel_list = Movie.objects.filter(year=2022).order_by('likes')[:12]
-        new_movies_list = Movie.objects.order_by('-world_premiere')[:6]
+        carousel_movies = Movie.objects.order_by('likes')[:12]
+        premieres = Movie.objects.order_by('-world_premiere')[:8]
+        new_movies = Movie.objects.order_by('-year')[:18]
         cartoon_id = Genre.objects.get(name='мультфильм')
         cartoons_list = Movie.objects.filter(genres=cartoon_id).order_by('-year')[:12]
 
-        context = {'carousel_list': carousel_list, 'new_movies_list': new_movies_list, 'cartoons_list': cartoons_list}
+        context = {'carousel_list': carousel_movies, 'premieres_list': premieres, 'cartoons_list': cartoons_list,
+                   'new_movies_list': new_movies}
         return render(request, 'web_site/index.html', context)
-
 
 
 class SingleMovieView(DetailView):
@@ -51,8 +58,9 @@ class ActorDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['actor_movie_lst'] = Movie.objects.filter(actors=self.object)[:12]
+        context['actor_movie_lst'] = Movie.objects.filter(actors=self.object)
         return context
+
 
 class DirectorDetailView(DetailView):
     model = Actor
@@ -62,5 +70,32 @@ class DirectorDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['director_movie_lst'] = Movie.objects.filter(actors=self.object)[:12]
+        context['director_movie_lst'] = Movie.objects.filter(actors=self.object)
         return context
+
+
+class CatalogView(MoviesFilter, ListView):
+    model = Movie
+    template_name = 'web_site/catalog_movies.html'
+    context_object_name = 'movies'
+
+    def get_queryset(self):
+        if self.request.GET:
+            genres = Genre.objects.get(name=self.request.GET.get('genres'))
+            queryset = Movie.objects.filter(genres=genres.id)
+            return queryset
+        else:
+            queryset = Movie.objects.order_by('year')
+            return queryset
+
+
+class CatalogForGenre(MoviesFilter, ListView):
+    model = Movie
+    template_name = 'web_site/catalog_movies.html'
+    context_object_name = 'movies'
+
+    def get_queryset(self):
+        if self.kwargs:
+            genres = Genre.objects.get(name=self.kwargs['slug'])
+            queryset = Movie.objects.filter(genres=genres.id)
+            return queryset

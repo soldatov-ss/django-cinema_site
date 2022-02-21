@@ -74,7 +74,7 @@ Main page
             <div class="row">
                 <div class="col-12">
                     <!-- content title -->
-                    <h2 class="content__title">New items</h2>
+                    <h2 class="content__title">Новинки</h2>
                     <!-- end content title -->
 
                     <!-- content tabs nav -->
@@ -109,7 +109,7 @@ Main page
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab"
                                                         href="#tab-1" role="tab" aria-controls="tab-1"
-                                                        aria-selected="true">НОВЫЕ ПРЕМЬЕРЫ</a></li>
+                                                        aria-selected="true">ПРЕМЬЕРЫ</a></li>
 
                                 <li class="nav-item"><a class="nav-link" id="2-tab" data-toggle="tab" href="#tab-2"
                                                         role="tab" aria-controls="tab-2"
@@ -133,7 +133,7 @@ Main page
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
                 <div class="row">
-                    {% for movie in new_movies_list %}
+                    {% for movie in premieres_list %}
                     <!-- card -->
                     <div class="col-6 col-sm-12 col-lg-6">
                         <div class="card card--list">
@@ -152,7 +152,7 @@ Main page
                                         <h3 class="card__title"><a href="{{ movie.get_absolute_url }}">{{ movie.title}}</a></h3>
                                         <span class="card__category">
 												{% for item in movie.genres.all|slice:":3" %}
-										            <a href="#">{{ item.name|title }}</a>
+										            <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
                                                 {% endfor %}
 											</span>
 
@@ -194,7 +194,7 @@ Main page
                                 </h3>
                                 <span class="card__category">
                                     {% for item in new_movie.genres.all|slice:":3" %}
-                                        <a href="#">{{ item.name|title }}</a>
+                                        <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
                                     {% endfor %}
 									</span>
                                 <span class="card__rate"><i class="icon ion-ios-star"></i>{{ new_movie.kinopoisk_rating }}</span>
@@ -224,7 +224,7 @@ Main page
                                 <h3 class="card__title"><a href="{{ cartoon.get_absolute_url }}">{{ cartoon.title }}</a></h3>
                                 <span class="card__category">
                                     {% for item in cartoon.genres.all|slice:":3" %}
-                                        <a href="#">{{ item.name|title }}</a>
+                                        <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
                                     {% endfor %}
 									</span>
                                 <span class="card__rate"><i class="icon ion-ios-star"></i>{{ cartoon.kinopoisk_rating }}</span>

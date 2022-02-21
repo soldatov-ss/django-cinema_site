@@ -1,4 +1,4 @@
-
+{% load static %}
 <header class="header">
     <div class="header__wrap">
         <div class="container">
@@ -6,37 +6,21 @@
                 <div class="col-12">
                     <div class="header__content">
                         <!-- header logo -->
-                        <a href="index.html" class="header__logo">
-                            <img src="img/logo.svg" alt="">
+                        <a href="{% url 'home' %}" class="header__logo">
+                            <img src="{% static 'img/logo.svg' %}" alt="">
                         </a>
                         <!-- end header logo -->
 
                         <!-- header nav -->
                         <ul class="header__nav">
-                            <!-- dropdown -->
                             <li class="header__nav-item">
-                                <a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuHome"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
-
-                                <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuHome">
-                                    <li><a href="index.html">Home slideshow bg</a></li>
-                                    <li><a href="index2.html">Home static bg</a></li>
-                                </ul>
+                                <a class="header__nav-link" href="{% url 'home' %}" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Home</a>
                             </li>
-                            <!-- end dropdown -->
 
-                            <!-- dropdown -->
                             <li class="header__nav-item">
-                                <a class="dropdown-toggle header__nav-link" href="#" role="button"
-                                   id="dropdownMenuCatalog" data-toggle="dropdown" aria-haspopup="true"
-                                   aria-expanded="false">Catalog</a>
-
-                                <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
-                                    <li><a href="catalog1.html">Catalog Grid</a></li>
-                                    <li><a href="catalog2.html">Catalog List</a></li>
-                                    <li><a href="details1.html">Details Movie</a></li>
-                                    <li><a href="details2.html">Details TV Series</a></li>
-                                </ul>
+                                <a class="header__nav-link" href="{% url 'catalog' %}" role="button" aria-haspopup="true"
+                                   aria-expanded="false">Каталог</a>
                             </li>
                             <!-- end dropdown -->
 

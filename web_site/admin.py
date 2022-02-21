@@ -23,7 +23,7 @@ class MovieShortsInline(admin.TabularInline):
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('slug',)}
+    prepopulated_fields = {'slug': ('title',)}
     list_display = ('title', 'category', 'kinopoisk_rating', 'year', 'slug')
     list_filter = ('category', 'kinopoisk_rating', 'year', 'genres')
     search_fields = ('title', 'category__name')
@@ -57,7 +57,7 @@ class ActorAdmin(admin.ModelAdmin):
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('slug',)}
+    prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'slug',)
 
 
