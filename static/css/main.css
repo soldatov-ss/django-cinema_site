@@ -3725,6 +3725,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .rating__body:before {
   content: '★★★★★';
   display: block;
+  color: #72716c;
 
 }
 .rating__active{
