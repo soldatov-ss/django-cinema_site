@@ -1,11 +1,11 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
-
 # Create your views here.
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView
 
 from web_site.forms import ReviewForm
-from web_site.models import Movie, Genre, Actor
+from web_site.models import Movie, Genre, Actor, Rating
 
 
 class MoviesFilter:
@@ -20,7 +20,7 @@ class MoviesView(MoviesFilter, View):
     template_name = 'web_site/index.html'
 
     def get(self, request):
-        carousel_movies = Movie.objects.order_by('likes')[:12]
+        carousel_movies = Movie.objects.order_by('kinopoisk_rating')[:12]
         premieres = Movie.objects.order_by('-world_premiere')[:8]
         new_movies = Movie.objects.order_by('-year')[:18]
         cartoon_id = Genre.objects.get(name='мультфильм')
@@ -31,18 +31,43 @@ class MoviesView(MoviesFilter, View):
         return render(request, 'web_site/index.html', context)
 
 
-class SingleMovieView(DetailView):
+class SingleMovieView(MoviesFilter, DetailView):
     model = Movie
     template_name = 'web_site/movie_detail.html'
     context_object_name = 'movie'
 
 
 class AddReview(View):
+
+    def rating_for_movie(self, pk, rating_review):
+        try:
+            rating_obj = Rating.objects.get(movie_id=pk)
+            count_r = int(rating_obj.count_reviews) + 1
+            sum_r = int(rating_obj.sum_rating) + rating_review
+            avg_r = round(sum_r / count_r, 1)
+
+            rating_obj.count_reviews = count_r
+            rating_obj.sum_rating = sum_r
+            rating_obj.avg_rating = avg_r
+            rating_obj.save()
+
+        except ObjectDoesNotExist:
+
+            Rating.objects.create(ip='123213',
+                                  count_reviews=1,
+                                  sum_rating=rating_review,
+                                  avg_rating=rating_review,
+                                  movie_id=pk)
+
     def post(self, request, pk):
         form = ReviewForm(request.POST)
         movie = Movie.objects.get(id=pk)
         if form.is_valid():
             form = form.save(commit=False)
+            form.rating = 2 * form.rating
+
+            self.rating_for_movie(pk, int(form.rating))
+
             if request.POST.get('parent', None):
                 form.parent_id = int(request.POST.get('parent'))
             form.movie = movie

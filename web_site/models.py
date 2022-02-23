@@ -1,9 +1,7 @@
-from django.db import models
-
 # Create your models here.
-from django.db import models
 from datetime import date
 
+from django.db import models
 from django.urls import reverse
 
 
@@ -65,7 +63,6 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre, verbose_name="жанры")
     world_premiere = models.DateField("Премьера в мире", default=date.today)
     budget = models.PositiveIntegerField("Бюджет", default=0, help_text="сумма в долларах")
-    likes = models.BigIntegerField('Понравилось', default=0)
     kinopoisk_rating = models.FloatField(verbose_name='Рейтинг Кинопоиск', default=0)
     running_time = models.FloatField('Продолжительность', default=0)
     fees_in_usa = models.PositiveIntegerField("Сборы в США", default=0, help_text="сумма в долларах")
@@ -102,25 +99,15 @@ class MovieShots(models.Model):
         verbose_name_plural = "Кадры из фильма"
 
 
-class RatingStar(models.Model):
-    value = models.SmallIntegerField("Значение", default=0)
-
-    def __str__(self):
-        return f'{self.value}'
-
-    class Meta:
-        verbose_name = "Звезда рейтинга"
-        verbose_name_plural = "Звезды рейтинга"
-        ordering = ["-value"]
-
-
 class Rating(models.Model):
     ip = models.CharField("IP адрес", max_length=15)
-    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
+    count_reviews = models.IntegerField('Кол-во оценок', default=0)
+    sum_rating = models.BigIntegerField('Кол-во звезд', default=0)
+    avg_rating = models.FloatField('Средняя оценка', default=0)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name="фильм", related_name="ratings")
 
     def __str__(self):
-        return f"{self.star} - {self.movie}"
+        return f"{self.avg_rating} - {self.movie}"
 
     class Meta:
         verbose_name = "Рейтинг"
@@ -132,6 +119,7 @@ class Reviews(models.Model):
     name = models.CharField("Имя", max_length=100)
     text = models.TextField("Сообщение", max_length=5000)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    rating = models.IntegerField('Оценка пользователя', blank=True)
     parent = models.ForeignKey('self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True)
     movie = models.ForeignKey(Movie, verbose_name="фильм", on_delete=models.CASCADE)
 

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load web_site_tags %}
 {% block title %}
 {{ movie.title }}
 {% endblock %}
@@ -37,7 +37,7 @@
                         <div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-9">
                             <div class="card__content">
                                 <div class="card__wrap">
-                                    <span class="card__rate"><i class="icon ion-ios-star"></i>{{ movie.kinopoisk_rating }}</span>
+                                    <span class="card__rate"><i class="icon ion-ios-star"></i>{% get_movie_rating movie.id %}</span>
 
                                     <ul class="card__list">
                                         <li>{{ movie.category }}</li>
@@ -61,8 +61,9 @@
                                         {% endfor %}
                                     </li>
                                     <li><span>Премьера в мире:</span> {{ movie.world_premiere }}</li>
-                                    <li><span>Продолжительность:</span> {{ movie.running_time}}</li>
+                                    <li><span>Продолжительность:</span> {{ movie.running_time}} мин.</li>
                                     <li><span>Страна:</span> <a href="#">{{ movie.country }}</a></li>
+                                    <li><span>Рейтинг Кинопоиск:</span>★ {{ movie.kinopoisk_rating }}</li>
                                 </ul>
 
                                 <div class="card__description card__description--details">
@@ -162,7 +163,8 @@
                         <div class="content__mobile-tabs-menu dropdown-menu" aria-labelledby="mobile-tabs">
                             <ul class="nav nav-tabs" role="tablist">
 
-                                <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab" href="#tab-1"
+                                <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab"
+                                                        href="#tab-1"
                                                         role="tab" aria-controls="tab-1"
                                                         aria-selected="false">Отзывы</a></li>
 
@@ -197,48 +199,66 @@
                                                 <span class="comments__name">{{ review.name }}</span>
                                                 <span class="comments__time">{{ review.created_at }}</span>
 
-                                                <span class="reviews__rating"><i class="icon ion-ios-star"></i>8.4</span>
+                                                <span class="reviews__rating"><i
+                                                        class="icon ion-ios-star"></i>{{ review.rating }}</span>
                                             </div>
                                             <p class="reviews__text">{{ review.text }}</p>
                                             <div class="comments__actions">
-                                                 <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">
-                                                     <button type="button"><i class="icon ion-ios-share-alt"></i>Ответить</button>
-                                                 </a>
+                                                <a href="#formReview"
+                                                   onclick="addReview('{{ review.name }}', '{{ review.id }}')">
+                                                    <button type="button"><i class="icon ion-ios-share-alt"></i>Ответить
+                                                    </button>
+                                                </a>
                                             </div>
                                         </li>
-                                            {% for answer in review.reviews_set.all %}
-                                                <li class="comments__item comments__item--answer">
-                                                    <div class="comments__autor">
-                                                        <img class="comments__avatar" src="{% static 'img/user.png' %}" alt="">
-                                                        <span class="comments__name">{{ answer.name }}</span>
-                                                        <span class="comments__time">{{ answer.created_at }}</span>
-                                                    </div>
-                                                    <p class="comments__text">{{ answer.text }}</p>
-                                                </li>
-                                            {% endfor %}
+                                        {% for answer in review.reviews_set.all %}
+                                        <li class="comments__item comments__item--answer">
+                                            <div class="comments__autor">
+                                                <img class="comments__avatar" src="{% static 'img/user.png' %}" alt="">
+                                                <span class="comments__name">{{ answer.name }}</span>
+                                                <span class="comments__time">{{ answer.created_at }}</span>
+                                            </div>
+                                            <p class="comments__text">{{ answer.text }}</p>
+                                        </li>
+                                        {% endfor %}
                                         {% endfor %}
                                     </ul>
 
-                                    <form action="{% url 'add_review' movie.id %}" method="post" class="form" id="formReview">
+                                    <form action="{% url 'add_review' movie.id %}" method="post" class="form form_margin"
+                                          id="formReview">
                                         <input type="hidden" value='' name="parent" id="contactparent">
                                         {% csrf_token %}
                                         <input type="text" class="form__input" placeholder="Email" name="email">
                                         <input type="text" class="form__input" placeholder="Ваше имя" name="name">
 
-                                        <textarea class="form__textarea" placeholder="Отзыв" name="text" id="contactcomment"></textarea>
-                                        <div class="form__slider">
-                                            <div class="form__slider-rating" id="slider__rating"></div>
-                                            <div class="form__slider-value" id="form__slider-value"></div>
+                                        <textarea class="form__textarea" placeholder="Отзыв" name="text"
+                                                  id="contactcomment"></textarea>
+
+                                        <div class="form__item">
+                                            <div class="form__label"></div>
+                                            <div class="rating rating_set">
+                                                <div class="rating__body">
+                                                    <div class="rating__active"></div>
+                                                    <div class="rating__items">
+                                                        <input type="radio" class="rating__item" value="1" name="rating">
+                                                        <input type="radio" class="rating__item" value="2" name="rating">
+                                                        <input type="radio" class="rating__item" value="3" name="rating">
+                                                        <input type="radio" class="rating__item" value="4" name="rating">
+                                                        <input type="radio" class="rating__item" value="5" name="rating">
+                                                    </div>
+                                                    <div class="rating_value" style="line-height: 0"></div>
+
+
+                                                </div>
+                                            </div>
                                         </div>
                                         <button type="submit" class="form__btn">Отправить</button>
                                     </form>
-
                                 </div>
                             </div>
                             <!-- end reviews -->
                         </div>
                     </div>
-
                     <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
                         <!-- project gallery -->
                         <div class="gallery" itemscope>
@@ -402,11 +422,8 @@
     </div>
 </section>
 <!-- end content -->
- <script>
-        function addReview(name, id) {
-            document.getElementById("contactparent").value = id;
-            document.getElementById("contactcomment").innerText = `${name}, `
-        }
+<script>
 
-    </script>
+
+</script>
 {% endblock %}

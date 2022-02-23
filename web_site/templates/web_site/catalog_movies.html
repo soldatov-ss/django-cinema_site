@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load web_site_tags %}
 {% block title %}
 Каталог фильмов
 {% endblock %}
@@ -92,7 +92,7 @@
                                     {% endfor %}
 									</span>
                                 <span class="card__rate"><i
-                                        class="icon ion-ios-star"></i>{{ movie.kinopoisk_rating }}</span>
+                                        class="icon ion-ios-star"></i>{% get_movie_rating movie.id %}</span>
                             </div>
                         </div>
 

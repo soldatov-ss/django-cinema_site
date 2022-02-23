@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Actor, Category, Movie, Genre, Reviews, Rating, RatingStar, MovieShots
+from .models import Actor, Category, Movie, Genre, Reviews, Rating, MovieShots
 
 
 class ReviewInline(admin.TabularInline):
@@ -33,7 +33,7 @@ class MovieAdmin(admin.ModelAdmin):
     fields = (
         ('title', 'tagline'), ('description'), ('poster', 'get_poster'), ('year', 'world_premiere', 'country'),
         ('directors', 'actors', 'genres',),
-        ('budget', 'fees_in_usa', 'fess_in_world',), ('likes', 'kinopoisk_rating',), ('category', 'running_time'),
+        ('budget', 'fees_in_usa', 'fess_in_world',), ('kinopoisk_rating',), ('category', 'running_time'),
         ('slug', 'draft')
     )
 
@@ -70,9 +70,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Reviews)
 class ReviewsAdmin(admin.ModelAdmin):
-    list_display = ('movie', 'name', 'parent')
-    list_filter = ('parent', 'created_at', 'movie')
-    readonly_fields = ('movie', 'name', 'email', 'parent')
+    list_display = ('movie', 'name', 'parent', 'rating')
+    list_filter = ('parent', 'created_at', 'movie', 'rating')
+    readonly_fields = ('movie', 'name', 'email', 'rating', 'parent')
 
 
 @admin.register(MovieShots)
@@ -88,5 +88,7 @@ class MovieShorts(admin.ModelAdmin):
     get_image.short_description = 'Фото'
 
 
-admin.site.register(RatingStar)
-admin.site.register(Rating)
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ('movie', 'avg_rating', 'ip')
+    readonly_fields = ('movie', 'avg_rating', 'ip', 'count_reviews', 'sum_rating')
