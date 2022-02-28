@@ -1,10 +1,12 @@
+from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
-# Create your views here.
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView
 
-from web_site.forms import ReviewForm
+from web_site.forms import ReviewForm, UserRegisterForm, UserLoginForm
 from web_site.models import Movie, Genre, Actor, Rating
 
 
@@ -114,8 +116,10 @@ class CatalogView(MoviesFilter, ListView):
     template_name = 'web_site/catalog_movies.html'
     context_object_name = 'movies'
 
+    # paginate_by = 3
+
     def get_queryset(self):
-        if self.request.GET:
+        if self.request.GET.get('genres'):
             genres = Genre.objects.get(name=self.request.GET.get('genres'))
             queryset = Movie.objects.filter(genres=genres.id)
             return queryset
@@ -127,10 +131,31 @@ class CatalogView(MoviesFilter, ListView):
 class CatalogForGenre(MoviesFilter, ListView):
     model = Movie
     template_name = 'web_site/catalog_movies.html'
-    context_object_name = 'movies'
 
     def get_queryset(self):
         if self.kwargs:
             genres = Genre.objects.get(name=self.kwargs['slug'])
             queryset = Movie.objects.filter(genres=genres.id)
             return queryset
+
+
+class UserRegisterView(CreateView):
+    form_class = UserRegisterForm
+    template_name = 'web_site/register.html'
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
+
+
+class UserLoginView(LoginView):
+    form_class = UserLoginForm
+    template_name = 'web_site/login.html'
+    next_page = 'home'
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')

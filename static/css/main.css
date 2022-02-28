@@ -3766,3 +3766,6 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   left: 0;
   color: #fdf497;
 }
+.errorlist {
+  color: white;
+}

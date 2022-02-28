@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Авторизация
+{% endblock %}
+
+{% block content %}
+<div class="sign section--bg" data-bg="{% static 'img/section/section.jpg' %}">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="sign__content">
+						<!-- authorization form -->
+						<form class="sign__form" method="post">
+                            {% csrf_token %}
+							<a href="{% url 'home' %}" class="sign__logo">
+								<img src="{% static 'img/logo.svg' %}" alt="">
+							</a>
+
+							{{ form.errors }}
+							<div class="sign__group">
+								{{ form.username }}
+							</div>
+
+							<div class="sign__group">
+                                {{ form.password }}
+							</div>
+
+							<div class="sign__group sign__group--checkbox">
+								<input id="remember" name="remember" type="checkbox" checked="checked">
+								<label for="remember">Запомнить меня</label>
+							</div>
+
+							<button class="sign__btn" type="submit">Войти</button>
+
+							<span class="sign__text">Еще нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться!</a></span>
+
+							<span class="sign__text"><a href="#">Забыли пароль?</a></span>
+						</form>
+						<!-- end authorization form -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
