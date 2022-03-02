@@ -115,28 +115,27 @@ class CatalogView(MoviesFilter, ListView):
     model = Movie
     template_name = 'web_site/catalog_movies.html'
     context_object_name = 'movies'
-
-    # paginate_by = 3
+    paginate_by = 3
 
     def get_queryset(self):
-        if self.request.GET.get('genres'):
-            genres = Genre.objects.get(name=self.request.GET.get('genres'))
+        print(f"{self.request.GET.get('genres')=}")
+        print(f'{self.kwargs=}')
+        if self.kwargs.get('slug'):
+            genres = Genre.objects.get(slug=self.kwargs['slug'])
             queryset = Movie.objects.filter(genres=genres.id)
+        # if self.request.GET.get('genres'):
+            # genres = Genre.objects.get(name=self.request.GET.get('genres'))
+            # queryset = Movie.objects.filter(genres=genres.id)
             return queryset
         else:
             queryset = Movie.objects.order_by('year')
             return queryset
 
-
-class CatalogForGenre(MoviesFilter, ListView):
-    model = Movie
-    template_name = 'web_site/catalog_movies.html'
-
-    def get_queryset(self):
-        if self.kwargs:
-            genres = Genre.objects.get(name=self.kwargs['slug'])
-            queryset = Movie.objects.filter(genres=genres.id)
-            return queryset
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.kwargs.get('slug'):
+            context['current_genre'] = self.kwargs['slug']
+        return context
 
 
 class UserRegisterView(CreateView):

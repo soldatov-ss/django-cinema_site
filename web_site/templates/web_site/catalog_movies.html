@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load web_site_tags %}
-{% load pagination_tags %}
 {% block title %}
 Каталог фильмов
 {% endblock %}
@@ -38,7 +37,7 @@
                 <div class="filter__content">
                     <div class="filter__items">
                         <!-- filter item -->
-                        <form action="{% url 'catalog' %}" method="get"
+                        <form action="{% url 'catalog' 1 %}" method="get"
                               style="display: flex; justify-content: space-between">
                             <div class="filter__item" id="filter__genre">
                                 <span class="filter__item-label">Жанр:</span>
@@ -89,10 +88,12 @@
                                 <h3 class="card__title"><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a>
                                 </h3>
                                 <span class="card__category">
-                                    {% for item in movie.genres.all|slice:":3" %}
-                                        <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
-                                    {% endfor %}
-									</span>
+                                    <form action="{% url 'catalog' 1 %}" method="get">
+                                        {% for item in movie.genres.all|slice:":3" %}
+                                        <a href="{{ item.get_absolute_url }}" type="submit">{{ item.name|title }} </a>
+                                        {% endfor %}
+                                    </form>
+                                </span>
                                 <span class="card__rate"><i
                                         class="icon ion-ios-star"></i>{% get_movie_rating movie.id %}</span>
                             </div>
@@ -102,44 +103,10 @@
                     <!-- end card -->
                     {% endfor %}
                     <!-- paginator -->
-<!--				<div class="col-12">-->
-<!--					<ul class="paginator paginator&#45;&#45;list">-->
-<!--                        {% if page_obj.has_previous %}-->
-<!--                            {% if page_obj.number|add:'-3' > 1 %}-->
-
-<!--                                <li class="paginator__item">-->
-<!--                                    <a href="?page=1">1</a>-->
-<!--                                </li>-->
-<!--                            {% endif %}-->
-<!--                            {% if page_obj.number|add:'-3' >= 3 %}-->
-<!--						        <li class="paginator__item"><a href="?page={{ page_obj.previous_page_number|add:'-3' }}">• • •</a></li>-->
-<!--                            {% endif %}-->
-<!--                        {% endif %}-->
-<!--                        {% if paginator.page_range|length > 1 %}-->
-<!--                            {% for i in paginator.page_range %}-->
-<!--                                {% if page_obj.number == i %}-->
-<!--						            <li class="paginator__item paginator__item&#45;&#45;active"><a href="#">{{ i }}</a></li>-->
-<!--                                {% elif i > page_obj.number|add:'-4' and i < page_obj.number|add:'4' %}-->
-<!--						            <li class="paginator__item"><a href="?page={{ i }}">{{ i }}</a></li>-->
-<!--                                {% endif %}-->
-<!--                            {% endfor %}-->
-<!--                        {% endif %}-->
-<!--                        {% if page_obj.has_next %}-->
-<!--                            {% if page_obj.number|add:'4' < page_obj.paginator.num_pages %}-->
-<!--						        <li class="paginator__item"><a href="?page={{ page_obj.next_page_number|add:'3' }}">• • •</a></li>-->
-<!--                            {% endif %}-->
-<!--                            {% if page_obj.number|add:'3' < page_obj.paginator.num_pages %}-->
-<!--                                <li class="paginator__item"><a class="pagination__link" href="?page={{ page_obj.paginator.num_pages }}">-->
-<!--                                {{ page_obj.paginator.num_pages }}</a>-->
-<!--                                </li>-->
-<!--                            {% endif %}-->
-<!--                        {% endif %}-->
-<!--					</ul>-->
-<!--				</div>-->
-				<!-- end paginator -->
+                    {% include 'inc/_paginator.html' %}
+                    <!--end paginator-->
                 </div>
             </div>
-
     </div>
         <!-- end content tabs -->
     </div>

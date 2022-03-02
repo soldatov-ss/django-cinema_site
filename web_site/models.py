@@ -40,8 +40,8 @@ class Genre(models.Model):
     description = models.TextField("Описание", blank=True)
     slug = models.SlugField(max_length=160, unique=True)
 
-    def get_absolute_url(self):
-        return reverse('catalog_list', kwargs={'slug': self.name})
+    def get_absolute_url(self, page=1):
+        return reverse('genre_catalog', kwargs={'slug': self.slug, 'page': page})
 
     def __str__(self):
         return self.name
