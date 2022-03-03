@@ -230,10 +230,14 @@
                                           id="formReview">
                                         <input type="hidden" value='' name="parent" id="contactparent">
                                         {% csrf_token %}
-                                        {{ form.email }}
-                                        {{ form.name }}
-                                        {{ form.text }}
-
+                                        {% if request.user.is_authenticated %}
+                                        {{ request.user.username }}
+                                            <input type="hidden" name="name" value="{{ request.user.username }}">
+                                            {{ form.text }}
+                                        {% else %}
+                                            {{ form.name }}
+                                            {{ form.text }}
+                                        {% endif %}
                                         <div class="form__item">
                                             <div class="form__label"></div>
                                             <div class="rating rating_set">

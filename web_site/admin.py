@@ -7,7 +7,7 @@ from .models import Actor, Category, Movie, Genre, Reviews, Rating, MovieShots
 class ReviewInline(admin.TabularInline):
     model = Reviews
     extra = 1
-    readonly_fields = ('name', 'email', 'movie', 'parent')
+    readonly_fields = ('name',  'movie', 'parent')
 
 
 class MovieShortsInline(admin.TabularInline):
@@ -72,7 +72,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ReviewsAdmin(admin.ModelAdmin):
     list_display = ('movie', 'name', 'parent', 'rating')
     list_filter = ('parent', 'created_at', 'movie', 'rating')
-    readonly_fields = ('movie', 'name', 'email', 'rating', 'parent')
+    readonly_fields = ('movie', 'name', 'rating', 'parent')
 
 
 @admin.register(MovieShots)

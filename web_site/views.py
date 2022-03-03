@@ -123,7 +123,7 @@ class CatalogView(MoviesFilter, ListView):
         if self.kwargs.get('slug'):
             genres = Genre.objects.get(slug=self.kwargs['slug'])
             queryset = Movie.objects.filter(genres=genres.id)
-        # if self.request.GET.get('genres'):
+            # if self.request.GET.get('genres'):
             # genres = Genre.objects.get(name=self.request.GET.get('genres'))
             # queryset = Movie.objects.filter(genres=genres.id)
             return queryset

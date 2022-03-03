@@ -115,7 +115,6 @@ class Rating(models.Model):
 
 
 class Reviews(models.Model):
-    email = models.EmailField()
     name = models.CharField("Имя", max_length=100)
     text = models.TextField("Сообщение", max_length=5000)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
