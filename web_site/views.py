@@ -118,18 +118,12 @@ class CatalogView(MoviesFilter, ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        print(f"{self.request.GET.get('genres')=}")
-        print(f'{self.kwargs=}')
         if self.kwargs.get('slug'):
             genres = Genre.objects.get(slug=self.kwargs['slug'])
             queryset = Movie.objects.filter(genres=genres.id)
-            # if self.request.GET.get('genres'):
-            # genres = Genre.objects.get(name=self.request.GET.get('genres'))
-            # queryset = Movie.objects.filter(genres=genres.id)
-            return queryset
         else:
             queryset = Movie.objects.order_by('year')
-            return queryset
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -137,6 +131,20 @@ class CatalogView(MoviesFilter, ListView):
             context['current_genre'] = self.kwargs['slug']
         return context
 
+class FilterMoviesView(MoviesFilter, ListView):
+    template_name = 'web_site/catalog_movies.html'
+    paginate_by = 5
+    context_object_name = 'movies'
+
+    def get_queryset(self):
+        genres = Genre.objects.get(name=self.request.GET.get('genre'))
+        queryset = Movie.objects.filter(genres=genres.id).distinct()
+        return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["url_genre"] = ''.join([f"genre={x}&" for x in self.request.GET.getlist("genre")])
+        return context
 
 class UserRegisterView(CreateView):
     form_class = UserRegisterForm

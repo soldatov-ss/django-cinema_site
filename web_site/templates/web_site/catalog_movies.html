@@ -37,14 +37,14 @@
                 <div class="filter__content">
                     <div class="filter__items">
                         <!-- filter item -->
-                        <form action="{% url 'catalog' 1 %}" method="get"
+                        <form action="{% url 'filter'  %}" method="get"
                               style="display: flex; justify-content: space-between">
                             <div class="filter__item" id="filter__genre">
                                 <span class="filter__item-label">Жанр:</span>
 
                                 <div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-genre"
                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <input type="text" name="genres" value="Выберите жанр">
+                                    <input type="text" name="genre" value="Выберите жанр">
                                     <span></span>
                                 </div>
                                 <ul class="filter__item-menu dropdown-menu scrollbar-dropdown"
