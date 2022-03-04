@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load web_site_tags %}
+{% load static web_site_tags recaptcha3 %}
 {% block title %}
 {{ movie.title }}
 {% endblock %}
@@ -231,12 +230,13 @@
                                         <input type="hidden" value='' name="parent" id="contactparent">
                                         {% csrf_token %}
                                         {% if request.user.is_authenticated %}
-                                        {{ request.user.username }}
                                             <input type="hidden" name="name" value="{{ request.user.username }}">
                                             {{ form.text }}
+                                            {{ form.captcha }}
                                         {% else %}
                                             {{ form.name }}
                                             {{ form.text }}
+                                            {{ form.captcha }}
                                         {% endif %}
                                         <div class="form__item">
                                             <div class="form__label"></div>

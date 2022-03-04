@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'snowpenguin.django.recaptcha3',
     'web_site'
 ]
 
@@ -126,3 +127,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RECAPTCHA_PRIVATE_KEY = '6LeLb7MeAAAAAL3h3cKttkz3OVLuNkNlqQElz-6F'
+RECAPTCHA_PUBLIC_KEY = '6LeLb7MeAAAAAI7ej6WKJVJbxKU95GggZ9kXQeEB'
+RECAPTCHA_DEFAULT_ACTION = 'generic'
+RECAPTCHA_SCORE_THRESHOLD = 0.5
+RECAPTCHA_LANGUAGE = 'en'

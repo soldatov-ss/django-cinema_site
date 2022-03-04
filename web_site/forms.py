@@ -1,13 +1,16 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from snowpenguin.django.recaptcha3.fields import ReCaptchaField
 
 from web_site.models import Reviews
 
 
 class ReviewForm(forms.ModelForm):
+    captcha = ReCaptchaField()
+
     class Meta:
         model = Reviews
-        fields = ['name', 'text', 'rating']
+        fields = ['name', 'text', 'rating', 'captcha']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form__input', 'placeholder': 'Ваше Имя'}),
             'text': forms.Textarea(attrs={'class': 'form__textarea',  'id':"contactcomment" , 'placeholder': 'Ваш отзыв'}),
