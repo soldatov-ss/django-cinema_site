@@ -115,7 +115,7 @@ class CatalogView(MoviesFilter, ListView):
     model = Movie
     template_name = 'web_site/catalog_movies.html'
     context_object_name = 'movies'
-    paginate_by = 3
+    paginate_by = 12
 
     def get_queryset(self):
         if self.kwargs.get('slug'):
@@ -131,9 +131,10 @@ class CatalogView(MoviesFilter, ListView):
             context['current_genre'] = self.kwargs['slug']
         return context
 
+
 class FilterMoviesView(MoviesFilter, ListView):
     template_name = 'web_site/catalog_movies.html'
-    paginate_by = 5
+    paginate_by = 12
     context_object_name = 'movies'
 
     def get_queryset(self):
@@ -145,6 +146,7 @@ class FilterMoviesView(MoviesFilter, ListView):
         context = super().get_context_data(*args, **kwargs)
         context["url_genre"] = ''.join([f"genre={x}&" for x in self.request.GET.getlist("genre")])
         return context
+
 
 class UserRegisterView(CreateView):
     form_class = UserRegisterForm
@@ -166,3 +168,17 @@ class UserLoginView(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+class Search(ListView):
+    template_name = 'web_site/catalog_movies.html'
+    context_object_name = 'movies'
+    paginate_by = 1
+
+    def get_queryset(self):
+        return Movie.objects.filter(title__icontains=self.request.GET.get('q').title())
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(Search, self).get_context_data(*args, **kwargs)
+        context["q"] = f'q={self.request.GET.get("q")}&'
+        return context

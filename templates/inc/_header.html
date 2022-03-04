@@ -80,14 +80,13 @@
     </div>
 
     <!-- header search -->
-    <form action="#" class="header__search">
+    <form action="{% url 'search' %}" class="header__search" method="get">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="header__search-content">
-                        <input type="text" placeholder="Search for a movie, TV Series that you are looking for">
-
-                        <button type="button">search</button>
+                        <input type="search" placeholder="Введите название ..." name="q" >
+                        <button type="submit">Поиск</button>
                     </div>
                 </div>
             </div>

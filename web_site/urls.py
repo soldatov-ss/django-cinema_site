@@ -5,6 +5,7 @@ urlpatterns = [
     path('', MoviesView.as_view(), name='home'),
     path('catalog/<int:page>/', CatalogView.as_view(), name='catalog'),
     path('filter/', FilterMoviesView.as_view(), name='filter'),
+    path('search/', Search.as_view(), name='search'),
     path('register/', UserRegisterView.as_view(), name='register'),
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
