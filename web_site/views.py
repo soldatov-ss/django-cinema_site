@@ -182,3 +182,7 @@ class Search(ListView):
         context = super(Search, self).get_context_data(*args, **kwargs)
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
+
+
+def about_us(request):
+    return render(request, 'web_site/about.html')
