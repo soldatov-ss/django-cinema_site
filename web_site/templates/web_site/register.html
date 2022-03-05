@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load i18n static %}
 {% block title %}
 Регистрация
 {% endblock %}
@@ -43,7 +43,7 @@
 
                         <button class="sign__btn" type="submit">Регистрация</button>
 
-                        <span class="sign__text">Уже зарегестрированы? <a href="{% url 'login' %}">Войти!</a></span>
+                        <span class="sign__text">{% trans 'Уже зарегестрированы?' %}<a href="{% url 'login' %}">{% trans 'Войти!' %}</a></span>
                     </form>
                     <!-- registration form -->
 

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static web_site_tags %}
+{% load i18n static web_site_tags %}
 {% block title %}
 Каталог фильмов
 {% endblock %}
@@ -13,12 +13,12 @@
             <div class="col-12">
                 <div class="section__wrap">
                     <!-- section title -->
-                    <h2 class="section__title">Каталог фильмов</h2>
+                    <h2 class="section__title">{% trans 'Каталог фильмов' %}</h2>
                     <!-- end section title -->
                     <!-- breadcrumb -->
                     <ul class="breadcrumb">
-                        <li class="breadcrumb__item"><a href="{% url 'home' %}">Домой</a></li>
-                        <li class="breadcrumb__item breadcrumb__item--active">Каталог</li>
+                        <li class="breadcrumb__item"><a href="{% url 'home' %}">{% trans 'Домой' %}</a></li>
+                        <li class="breadcrumb__item breadcrumb__item--active">{% trans 'Каталог' %}</li>
                     </ul>
                     <!-- end breadcrumb -->
                 </div>
@@ -39,7 +39,7 @@
                         <form action="{% url 'filter'  %}" method="get"
                               style="display: flex; justify-content: space-between">
                             <div class="filter__item" id="filter__genre">
-                                <span class="filter__item-label">Жанр:</span>
+                                <span class="filter__item-label">{% trans 'Жанр' %}:</span>
 
                                 <div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-genre"
                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,7 +55,7 @@
                             </div>
 
                             <!-- filter btn -->
-                            <button class="filter__btn" type="submit">Найти</button>
+                            <button class="filter__btn" type="submit">{% trans 'Найти' %}</button>
                             <!-- end filter btn -->
                         </form>
                     </div>

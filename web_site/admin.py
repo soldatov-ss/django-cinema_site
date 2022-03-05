@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from modeltranslation.admin import TranslationAdmin
 
 from .models import Actor, Category, Movie, Genre, Reviews, Rating, MovieShots
 
@@ -22,7 +23,7 @@ class MovieShortsInline(admin.TabularInline):
 
 
 @admin.register(Movie)
-class MovieAdmin(admin.ModelAdmin):
+class MovieAdmin(TranslationAdmin):
     prepopulated_fields = {'slug': ('title',)}
     list_display = ('title', 'category', 'kinopoisk_rating', 'year', 'slug')
     list_filter = ('category', 'kinopoisk_rating', 'year', 'genres')
@@ -44,7 +45,7 @@ class MovieAdmin(admin.ModelAdmin):
 
 
 @admin.register(Actor)
-class ActorAdmin(admin.ModelAdmin):
+class ActorAdmin(TranslationAdmin):
     list_display = ('name', 'age')
     readonly_fields = ('get_image',)
     list_display_links = ('name', 'age')
@@ -56,13 +57,13 @@ class ActorAdmin(admin.ModelAdmin):
 
 
 @admin.register(Genre)
-class GenreAdmin(admin.ModelAdmin):
+class GenreAdmin(TranslationAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'slug',)
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'slug')
     search_fields = ('name',)
@@ -76,7 +77,7 @@ class ReviewsAdmin(admin.ModelAdmin):
 
 
 @admin.register(MovieShots)
-class MovieShorts(admin.ModelAdmin):
+class MovieShorts(TranslationAdmin):
     list_display = ('title', 'movie', 'get_image')
     list_filter = ('title', 'movie')
     search_fields = ('movie', 'title')

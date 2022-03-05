@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load i18n static %}
 
 {% block title %}
 Режиссёр: {{ director.name }}
@@ -36,8 +36,8 @@
                         <div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-9">
                             <div class="card__content">
                                 <ul class="card__meta">
-                                    <li><span>Возраст:</span> {{ director.age }}</li>
-                                    <li><span>Биография:</span></li>
+                                    <li><span>{% trans 'Возраст' %}:</span> {{ director.age }}</li>
+                                    <li><span>{% trans 'Биография' %}}:</span></li>
 
                                 </ul>
 
@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-12">
                     <!-- content title -->
-                    <h2 class="content__title">Фильмы снятые режиссёром</h2>
+                    <h2 class="content__title">{% trans 'Фильмы снятые режиссёром' %}</h2>
                     <!-- end content title -->
                 </div>
             </div>

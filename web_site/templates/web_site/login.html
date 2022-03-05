@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load i18n static %}
 {% block title %}
 Авторизация
 {% endblock %}
@@ -28,14 +28,14 @@
 
 							<div class="sign__group sign__group--checkbox">
 								<input id="remember" name="remember" type="checkbox" checked="checked">
-								<label for="remember">Запомнить меня</label>
+								<label for="remember">{% trans 'Запомнить меня' %}</label>
 							</div>
 
-							<button class="sign__btn" type="submit">Войти</button>
+							<button class="sign__btn" type="submit">{% trans 'Войти' %}</button>
 
-							<span class="sign__text">Еще нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться!</a></span>
+							<span class="sign__text">{% trans 'Еще нет аккаунта?' %} <a href="{% url 'register' %}">{% trans 'Зарегистрироваться!' %}</a></span>
 
-							<span class="sign__text"><a href="#">Забыли пароль?</a></span>
+							<span class="sign__text"><a href="#">{% trans 'Забыли пароль?' %}</a></span>
 						</form>
 						<!-- end authorization form -->
 					</div>

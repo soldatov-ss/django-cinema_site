@@ -1,4 +1,4 @@
-{% load static %}
+{% load i18n static %}
 <header class="header">
     <div class="header__wrap">
         <div class="container">
@@ -15,23 +15,23 @@
                         <ul class="header__nav">
                             <li class="header__nav-item">
                                 <a class="header__nav-link" href="{% url 'home' %}" role="button"
-                                   aria-haspopup="true" aria-expanded="false">Home</a>
+                                   aria-haspopup="true" aria-expanded="false">{% trans 'Home' %}</a>
                             </li>
 
                             <li class="header__nav-item">
                                 <a class="header__nav-link" href="{% url 'catalog' 1 %}" role="button" aria-haspopup="true"
-                                   aria-expanded="false">Каталог</a>
+                                   aria-expanded="false">{% trans 'Каталог' %}</a>
                             </li>
                             <!-- end dropdown -->
 
+
                             <li class="header__nav-item">
-                                <a href="pricing.html" class="header__nav-link">Pricing Plan</a>
+                                <a href="faq.html" class="header__nav-link">{% trans 'Помощь' %}</a>
                             </li>
 
                             <li class="header__nav-item">
-                                <a href="faq.html" class="header__nav-link">Help</a>
+                                <a href="{% url 'about' %}" class="header__nav-link">{% trans 'О нас' %}</a>
                             </li>
-
                             <!-- dropdown -->
                             <li class="dropdown header__nav-item">
                                 <a class="dropdown-toggle header__nav-link header__nav-link--more" href="#"
@@ -39,8 +39,23 @@
                                    aria-expanded="false"><i class="icon ion-ios-more"></i></a>
 
                                 <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
-                                    <li><a href="{% url 'about' %}">About</a></li>
-                                    <li><a href="404.html">404 Page</a></li>
+                                    <li class="change_lang">{% trans 'Изменить язык сайта' %}</li>
+                                    <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                                        <input name="next" type="hidden" value="{{ redirect_to }}">
+                                        <select name="language" class="choise_lang">
+                                            {% get_current_language as LANGUAGE_CODE %}
+                                            {% get_available_languages as LANGUAGES %}
+                                            {% get_language_info_list for LANGUAGES as languages %}
+
+                                            {% for language in languages %}
+                                               <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+                                                        selected{% endif %}>
+                                                    {{ language.name_local }} ({{ language.code }})
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                        <input type="submit" value="{% trans 'Изменить ' %}" class="change_submt">
+                                    </form>
                                 </ul>
                             </li>
                             <!-- end dropdown -->
@@ -55,12 +70,12 @@
                             {% if request.user.is_authenticated %}
                                 <a href="{% url 'logout' %}" class="header__sign-in">
                                     <i class="icon ion-ios-log-in"></i>
-                                        <span>Выйти</span>
+                                        <span>{% trans 'Выйти' %}</span>
                                 </a>
                             {% else %}
                                 <a href="{% url 'login' %}" class="header__sign-in">
                                     <i class="icon ion-ios-log-in"></i>
-                                        <span>Войти</span>
+                                        <span>{% trans 'Войти' %}</span>
                                 </a>
                             {% endif %}
                         </div>
@@ -86,7 +101,7 @@
                 <div class="col-12">
                     <div class="header__search-content">
                         <input type="search" placeholder="Введите название ..." name="q" >
-                        <button type="submit">Поиск</button>
+                        <button type="submit">{% trans 'Поиск' %}</button>
                     </div>
                 </div>
             </div>

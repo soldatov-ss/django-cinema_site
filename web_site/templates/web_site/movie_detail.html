@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static web_site_tags recaptcha3 %}
+{% load i18n static web_site_tags recaptcha3 %}
 {% block title %}
 {{ movie.title }}
 {% endblock %}
@@ -44,25 +44,25 @@
                                 </div>
 
                                 <ul class="card__meta">
-                                    <li><span>Жанр:</span>
+                                    <li><span>{% trans 'Жанр' %}:</span>
                                         {% for item in movie.genres.all %}
                                         <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
                                         {% endfor %}
                                     </li>
-                                    <li><span>Режиссер:</span>
+                                    <li><span>{% trans 'Режиссер' %}:</span>
                                         {% for item in movie.directors.all %}
                                         <a href="{% url 'director_detail' item.name %}">{{ item.name|title }}</a>
                                         {% endfor %}
                                     </li>
-                                    <li><span>Актёры:</span>
+                                    <li><span>{% trans 'Актёры' %}:</span>
                                         {% for item in movie.actors.all %}
                                         <a href="{{ item.get_absolute_url  }}">{{ item.name|title }}</a>
                                         {% endfor %}
                                     </li>
-                                    <li><span>Премьера в мире:</span> {{ movie.world_premiere }}</li>
-                                    <li><span>Продолжительность:</span> {{ movie.running_time}} мин.</li>
-                                    <li><span>Страна:</span> <a href="#">{{ movie.country }}</a></li>
-                                    <li><span>Рейтинг Кинопоиск:</span>★ {{ movie.kinopoisk_rating }}</li>
+                                    <li><span>{% trans 'Премьера в мире' %}:</span> {{ movie.world_premiere }}</li>
+                                    <li><span>{% trans 'Продолжительность' %}:</span> {{ movie.running_time}} мин.</li>
+                                    <li><span>{% trans 'Страна' %}:</span> <a href="#">{{ movie.country }}</a></li>
+                                    <li><span>{% trans 'Рейтинг Кинопоиск' %}:</span>★ {{ movie.kinopoisk_rating }}</li>
                                 </ul>
 
                                 <div class="card__description card__description--details">
@@ -141,12 +141,12 @@
 
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1"
-                               aria-selected="false">Отзывы</a>
+                               aria-selected="false">{% trans 'Отзывы' %}</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2"
-                               aria-selected="false">Кадры с фильма</a>
+                               aria-selected="false">{% trans 'Кадры с фильма' %}</a>
                         </li>
                     </ul>
                     <!-- end content tabs nav -->
@@ -165,11 +165,11 @@
                                 <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab"
                                                         href="#tab-1"
                                                         role="tab" aria-controls="tab-1"
-                                                        aria-selected="false">Отзывы</a></li>
+                                                        aria-selected="false">{% trans 'Отзывы' %}</a></li>
 
                                 <li class="nav-item"><a class="nav-link" id="2-tab" data-toggle="tab" href="#tab-2"
                                                         role="tab" aria-controls="tab-2"
-                                                        aria-selected="false">Кадры с фильма</a></li>
+                                                        aria-selected="false">{% trans 'Кадры с фильма' %}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -206,7 +206,8 @@
                                             <div class="comments__actions">
                                                 <a href="#formReview"
                                                    onclick="addReview('{{ review.name }}', '{{ review.id }}')">
-                                                    <button type="button"><i class="icon ion-ios-share-alt"></i>Ответить
+                                                    <button type="button">
+                                                        <i class="icon ion-ios-share-alt"></i>{% trans 'Ответить' %}
                                                     </button>
                                                 </a>
                                             </div>
@@ -261,7 +262,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="form__btn">Отправить</button>
+                                        <button type="submit" class="form__btn">{% trans 'Отправить' %}</button>
                                     </form>
                                 </div>
                             </div>
