@@ -23,12 +23,13 @@ class Actor(models.Model):
     age = models.PositiveSmallIntegerField("Возраст", default=0)
     description = models.TextField("Описание", blank=True)
     image = models.ImageField("Изображение", upload_to="actors/", blank=True)
+    slug = models.SlugField(max_length=200,  unique=True)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('actor_detail', kwargs={"slug": self.name})
+        return reverse('actor_detail', kwargs={"slug": self.slug})
 
     class Meta:
         verbose_name = "Актеры и режиссеры"

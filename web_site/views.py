@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic.list import MultipleObjectMixin
 
 from web_site.forms import ReviewForm, UserRegisterForm, UserLoginForm
 from web_site.models import Movie, Genre, Actor, Rating
@@ -24,7 +25,7 @@ class MoviesView(MoviesFilter, View):
         carousel_movies = Movie.objects.order_by('kinopoisk_rating')[:12]
         premieres = Movie.objects.order_by('-world_premiere')[:8]
         new_movies = Movie.objects.order_by('-year')[:18]
-        cartoon_id = Genre.objects.get(name='мультфильм')
+        cartoon_id = Genre.objects.get(slug='multfilm')
         cartoons_list = Movie.objects.filter(genres=cartoon_id).order_by('-year')[:12]
 
         context = {'carousel_list': carousel_movies, 'premieres_list': premieres, 'cartoons_list': cartoons_list,
@@ -90,7 +91,6 @@ class AddReview(View):
 class ActorDetailView(DetailView):
     model = Actor
     template_name = 'web_site/actor_detail.html'
-    slug_field = 'name'
     context_object_name = 'actor'
 
     def get_context_data(self, **kwargs):
@@ -99,15 +99,18 @@ class ActorDetailView(DetailView):
         return context
 
 
-class DirectorDetailView(DetailView):
+class DirectorDetailView(DetailView, MultipleObjectMixin):
     model = Actor
     template_name = 'web_site/directors_detail.html'
-    slug_field = 'name'
     context_object_name = 'director'
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['director_movie_lst'] = Movie.objects.filter(actors=self.object)
+        object_list = Movie.objects.filter(actors=self.object)
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        print(self.request)
+        print(self.kwargs)
+        print('-' * 70)
         return context
 
 

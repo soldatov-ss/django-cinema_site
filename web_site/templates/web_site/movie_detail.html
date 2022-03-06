@@ -51,7 +51,7 @@
                                     </li>
                                     <li><span>{% trans 'Режиссер' %}:</span>
                                         {% for item in movie.directors.all %}
-                                        <a href="{% url 'director_detail' item.name %}">{{ item.name|title }}</a>
+                                        <a href="{% url 'director_detail' item.slug 1 %}">{{ item.name|title }}</a>
                                         {% endfor %}
                                     </li>
                                     <li><span>{% trans 'Актёры' %}:</span>

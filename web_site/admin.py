@@ -46,9 +46,10 @@ class MovieAdmin(TranslationAdmin):
 
 @admin.register(Actor)
 class ActorAdmin(TranslationAdmin):
-    list_display = ('name', 'age')
+    prepopulated_fields = {'slug': ('name',)}
+    list_display = ('name', 'slug', 'age')
     readonly_fields = ('get_image',)
-    list_display_links = ('name', 'age')
+    list_display_links = ('name', 'slug', 'age')
 
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.image.url} width="50" height="60">')
