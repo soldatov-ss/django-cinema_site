@@ -14,6 +14,6 @@ urlpatterns = [
     path('catalog/<slug:slug>/<int:page>/', CatalogView.as_view(), name='genre_catalog'),
     path('/<slug:slug>/', SingleMovieView.as_view(), name='movie_detail'),
     path("review/<int:pk>/", AddReview.as_view(), name="add_review"),
-    path("actor/<str:slug>/", ActorDetailView.as_view(), name="actor_detail"),
+    path("actor/<str:slug>/<int:page>/", ActorDetailView.as_view(), name="actor_detail"),
     path("producer/<str:slug>/<int:page>/", DirectorDetailView.as_view(), name="director_detail"),
 ]

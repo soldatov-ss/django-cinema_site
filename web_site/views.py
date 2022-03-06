@@ -88,14 +88,15 @@ class AddReview(View):
         return redirect(movie.get_absolute_url())
 
 
-class ActorDetailView(DetailView):
+class ActorDetailView(DetailView, MultipleObjectMixin):
     model = Actor
     template_name = 'web_site/actor_detail.html'
     context_object_name = 'actor'
+    paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['actor_movie_lst'] = Movie.objects.filter(actors=self.object)
+        object_list = Movie.objects.filter(actors=self.object)
+        context = super().get_context_data(object_list=object_list, **kwargs)
         return context
 
 
@@ -103,14 +104,11 @@ class DirectorDetailView(DetailView, MultipleObjectMixin):
     model = Actor
     template_name = 'web_site/directors_detail.html'
     context_object_name = 'director'
-    paginate_by = 3
+    paginate_by = 12
 
     def get_context_data(self, **kwargs):
         object_list = Movie.objects.filter(actors=self.object)
         context = super().get_context_data(object_list=object_list, **kwargs)
-        print(self.request)
-        print(self.kwargs)
-        print('-' * 70)
         return context
 
 
