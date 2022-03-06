@@ -186,3 +186,7 @@ class Search(ListView):
 
 def about_us(request):
     return render(request, 'web_site/about.html')
+
+
+def faq_page(request):
+    return render(request, 'web_site/help_page.html')

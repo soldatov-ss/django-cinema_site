@@ -7,6 +7,7 @@ urlpatterns = [
     path('filter/', FilterMoviesView.as_view(), name='filter'),
     path('search/', Search.as_view(), name='search'),
     path('about/', about_us, name='about'),
+    path('help/', faq_page, name='help_page'),
     path('register/', UserRegisterView.as_view(), name='register'),
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
