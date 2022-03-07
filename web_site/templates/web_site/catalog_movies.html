@@ -39,21 +39,52 @@
                         <form action="{% url 'filter'  %}" method="get"
                               style="display: flex; justify-content: space-between">
                             <div class="filter__item" id="filter__genre">
-                                <span class="filter__item-label">{% trans 'Жанр' %}:</span>
+                                <span class="filter__item-label">{% trans 'Выберите жанр' %}:</span>
 
                                 <div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-genre"
                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <input type="text" name="genre" value="Выберите жанр">
+                                    <input type="text" name="genre" value="{% trans 'Жанр' %}">
+
                                     <span></span>
                                 </div>
                                 <ul class="filter__item-menu dropdown-menu scrollbar-dropdown"
                                     aria-labelledby="filter-genre">
                                     {% for genre in view.get_genres %}
-                                    <li>{{genre.name}}</li>
+                                    <li>{{ genre.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="filter__item" id="filter__year">
+                                <span class="filter__item-label">{% trans 'Выберите год' %}:</span>
+
+                                <div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-year"
+                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <input type="text" name="year" value="{% trans 'Год' %}">
+                                    <span></span>
+                                </div>
+                                <ul class="filter__item-menu dropdown-menu scrollbar-dropdown"
+                                    aria-labelledby="filter-year">
+                                    {% for year in view.get_years %}
+                                    <li>{{ year }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
 
+                            <div class="filter__item" id="filter__country">
+                                <span class="filter__item-label">{% trans 'Выберите страну' %}:</span>
+
+                                <div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-country"
+                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <input type="text" name="country" value="{% trans 'Страна' %}">
+                                    <span></span>
+                                </div>
+                                <ul class="filter__item-menu dropdown-menu scrollbar-dropdown"
+                                    aria-labelledby="filter-year">
+                                    {% for country in view.get_countries %}
+                                    <li>{{ country }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                             <!-- filter btn -->
                             <button class="filter__btn" type="submit">{% trans 'Найти' %}</button>
                             <!-- end filter btn -->

@@ -39,11 +39,11 @@
             {% if page_obj.has_previous %}
                 {% if page_obj.number|add:'-3' > 1 %}
                     <li class="paginator__item">
-                        <a href="?{{q}}{{ url_genre }}{{ year }}page=1">1</a>
+                        <a href="?{{q}}{{ url_genre }}{{ year }}{{ country }}page=1">1</a>
                     </li>
                 {% endif %}
                 {% if page_obj.number|add:'-3' >= 3 %}
-                    <li class="paginator__item"><a href="?{{q}}{{ url_genre }}{{ year }}page={{ page_obj.previous_page_number|add:'-3' }}">• • •</a></li>
+                    <li class="paginator__item"><a href="?{{q}}{{ url_genre }}{{ year }}{{ country }}page={{ page_obj.previous_page_number|add:'-3' }}">• • •</a></li>
                 {% endif %}
             {% endif %}
             {% if paginator.page_range|length > 1 %}
@@ -51,16 +51,16 @@
                     {% if page_obj.number == i %}
                         <li class="paginator__item paginator__item--active"><a href="#">{{ i }}</a></li>
                     {% elif i > page_obj.number|add:'-4' and i < page_obj.number|add:'4' %}
-                        <li class="paginator__item"><a href="?{{q}}{{ url_genre }}{{ year }}page={{ i }}">{{ i }}</a></li>
+                        <li class="paginator__item"><a href="?{{q}}{{ url_genre }}{{ year }}{{ country }}page={{ i }}">{{ i }}</a></li>
                     {% endif %}
                 {% endfor %}
             {% endif %}
             {% if page_obj.has_next %}
                 {% if page_obj.number|add:'4' < page_obj.paginator.num_pages %}
-                    <li class="paginator__item"><a href="?{{q}}{{ url_genre }}{{ year }}page={{ page_obj.next_page_number|add:'3' }}">• • •</a></li>
+                    <li class="paginator__item"><a href="?{{q}}{{ url_genre }}{{ year }}{{ country }}page={{ page_obj.next_page_number|add:'3' }}">• • •</a></li>
                 {% endif %}
                 {% if page_obj.number|add:'3' < page_obj.paginator.num_pages %}
-                    <li class="paginator__item"><a class="pagination__link" href="?{{q}}{{ url_genre }}{{ year }}page={{ page_obj.paginator.num_pages }}">
+                    <li class="paginator__item"><a class="pagination__link" href="?{{q}}{{ url_genre }}{{ year }}{{ country }}page={{ page_obj.paginator.num_pages }}">
                     {{ page_obj.paginator.num_pages }}</a>
                     </li>
                 {% endif %}

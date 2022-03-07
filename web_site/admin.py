@@ -25,8 +25,8 @@ class MovieShortsInline(admin.TabularInline):
 @admin.register(Movie)
 class MovieAdmin(TranslationAdmin):
     prepopulated_fields = {'slug': ('title',)}
-    list_display = ('title', 'category', 'kinopoisk_rating', 'year', 'slug')
-    list_filter = ('category', 'kinopoisk_rating', 'year', 'genres')
+    list_display = ('title', 'category', 'country', 'kinopoisk_rating', 'year', 'slug')
+    list_filter = ('category', 'kinopoisk_rating', 'year', 'genres', 'country')
     search_fields = ('title', 'category__name')
     readonly_fields = ('get_poster',)
     save_on_top = True

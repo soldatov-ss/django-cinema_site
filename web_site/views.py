@@ -1,6 +1,7 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -16,6 +17,11 @@ class MoviesFilter:
     def get_genres(self):
         return Genre.objects.all()
 
+    def get_years(self):
+        return Movie.objects.values_list('year', flat=True).distinct()
+
+    def get_countries(self):
+        return Movie.objects.values_list('country', flat=True).distinct()
 
 class MoviesView(MoviesFilter, View):
     model = Movie
@@ -138,14 +144,37 @@ class FilterMoviesView(MoviesFilter, ListView):
     paginate_by = 12
     context_object_name = 'movies'
 
+    def result_queryset(self, genres, year, country):
+        if year and genres and country:
+            queryset = Movie.objects.filter(genres=genres, year=year, country=country)
+        elif year is None and (genres and country):
+            queryset = Movie.objects.filter(genres=genres, country=country).distinct()
+        elif genres is None and (year and country):
+            queryset = Movie.objects.filter(year=year, country=country).distinct()
+        elif country is None and (year and genres):
+            queryset = Movie.objects.filter(year=year, genres=genres).distinct()
+        else:
+            print(f'{year=}, {genres=}')
+            queryset = Movie.objects.filter(Q(genres=genres) | Q(country=country) | Q(year=year)).distinct()
+
+        return queryset
+
     def get_queryset(self):
-        genres = Genre.objects.get(name=self.request.GET.get('genre'))
-        queryset = Movie.objects.filter(genres=genres.id).distinct()
+        genres = None
+        if self.request.GET.get('genre') not in ['Genre', 'Жанр']:
+            genres = Genre.objects.get(name=self.request.GET.get('genre')).id
+
+        country = None if self.request.GET.get('country') in ['Country', 'Страна'] else self.request.GET.get('country')
+        year = None if self.request.GET.get('year') in ['Year', 'Год'] else self.request.GET.get('year')
+
+        queryset = self.result_queryset(genres, year, country)
         return queryset
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["url_genre"] = ''.join([f"genre={x}&" for x in self.request.GET.getlist("genre")])
+        context["url_genre"] = f'genre={self.request.GET.get("genre")}&'
+        context["country"] = f"year={self.request.GET.get('year')}&"
+        context["year"] = f"country={self.request.GET.get('country')}&"
         return context
 
 
