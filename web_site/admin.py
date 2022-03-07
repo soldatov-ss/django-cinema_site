@@ -34,7 +34,7 @@ class MovieAdmin(TranslationAdmin):
     fields = (
         ('title', 'tagline'), ('description'), ('poster', 'get_poster'), ('year', 'world_premiere', 'country'),
         ('directors', 'actors', 'genres',),
-        ('budget', 'fees_in_usa', 'fess_in_world',), ('kinopoisk_rating',), ('category', 'running_time'),
+        ('budget', 'fess_in_world',), ('kinopoisk_rating',), ('category', 'running_time'),
         ('slug', 'draft')
     )
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-07 15:34+0200\n"
+"POT-Creation-Date: 2022-03-07 19:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,7 +84,7 @@ msgid "Выберите жанр"
 msgstr "Select genre"
 
 #: .\web_site\templates\web_site\catalog_movies.html:46
-#: .\web_site\templates\web_site\movie_detail.html:47
+#: .\web_site\templates\web_site\movie_detail.html:50
 msgid "Жанр"
 msgstr "Genre"
 
@@ -101,7 +101,7 @@ msgid "Выберите страну"
 msgstr "Select country"
 
 #: .\web_site\templates\web_site\catalog_movies.html:78
-#: .\web_site\templates\web_site\movie_detail.html:64
+#: .\web_site\templates\web_site\movie_detail.html:67
 msgid "Страна"
 msgstr "Country"
 
@@ -165,41 +165,55 @@ msgstr "Sign up!"
 msgid "Забыли пароль?"
 msgstr "Forgot password?"
 
-#: .\web_site\templates\web_site\movie_detail.html:52
+#: .\web_site\templates\web_site\movie_detail.html:48
+msgid "Слоган"
+msgstr "Slogan"
+
+#: .\web_site\templates\web_site\movie_detail.html:55
 msgid "Режиссер"
 msgstr "Directed by"
 
-#: .\web_site\templates\web_site\movie_detail.html:57
+#: .\web_site\templates\web_site\movie_detail.html:60
 msgid "Актёры"
 msgstr "Actors"
 
-#: .\web_site\templates\web_site\movie_detail.html:62
+#: .\web_site\templates\web_site\movie_detail.html:65
 msgid "Премьера в мире"
 msgstr "World Premiere"
 
-#: .\web_site\templates\web_site\movie_detail.html:63
+#: .\web_site\templates\web_site\movie_detail.html:66
 msgid "Продолжительность"
 msgstr "Duration"
 
-#: .\web_site\templates\web_site\movie_detail.html:65
+#: .\web_site\templates\web_site\movie_detail.html:68
 msgid "Рейтинг Кинопоиск"
 msgstr "Kinopoisk Rating"
 
-#: .\web_site\templates\web_site\movie_detail.html:144
-#: .\web_site\templates\web_site\movie_detail.html:168
+#: .\web_site\templates\web_site\movie_detail.html:70
+msgid "Бюджет"
+msgstr "Budget"
+
+#: .\web_site\templates\web_site\movie_detail.html:73
+#, fuzzy
+#| msgid "Премьера в мире"
+msgid "Кассовые сборы в мире"
+msgstr "World Premiere"
+
+#: .\web_site\templates\web_site\movie_detail.html:153
+#: .\web_site\templates\web_site\movie_detail.html:177
 msgid "Отзывы"
 msgstr "Reviews"
 
-#: .\web_site\templates\web_site\movie_detail.html:149
-#: .\web_site\templates\web_site\movie_detail.html:172
+#: .\web_site\templates\web_site\movie_detail.html:158
+#: .\web_site\templates\web_site\movie_detail.html:181
 msgid "Кадры с фильма"
 msgstr "Movie shorts"
 
-#: .\web_site\templates\web_site\movie_detail.html:210
+#: .\web_site\templates\web_site\movie_detail.html:219
 msgid "Ответить"
 msgstr "Reply"
 
-#: .\web_site\templates\web_site\movie_detail.html:265
+#: .\web_site\templates\web_site\movie_detail.html:274
 msgid "Отправить"
 msgstr "Send"
 

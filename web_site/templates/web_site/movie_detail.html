@@ -44,6 +44,9 @@
                                 </div>
 
                                 <ul class="card__meta">
+                                    {% if movie.tagline %}
+                                        <li><span>{% trans 'Слоган' %}:</span>{{ movie.tagline }}</li>
+                                    {% endif %}
                                     <li><span>{% trans 'Жанр' %}:</span>
                                         {% for item in movie.genres.all %}
                                         <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
@@ -61,8 +64,14 @@
                                     </li>
                                     <li><span>{% trans 'Премьера в мире' %}:</span> {{ movie.world_premiere }}</li>
                                     <li><span>{% trans 'Продолжительность' %}:</span> {{ movie.running_time}} мин.</li>
-                                    <li><span>{% trans 'Страна' %}:</span> <a href="#">{{ movie.country }}</a></li>
+                                    <li><span>{% trans 'Страна' %}:</span>{{ movie.country }}</li>
                                     <li><span>{% trans 'Рейтинг Кинопоиск' %}:</span>★ {{ movie.kinopoisk_rating }}</li>
+                                    {% if movie.budget %}
+                                        <li><span>{% trans 'Бюджет' %}:</span>{{ movie.budget }} $</li>
+                                    {% endif %}
+                                    {% if movie.fess_in_world %}
+                                        <li><span>{% trans 'Кассовые сборы в мире' %}:</span>{{ movie.fess_in_world }} $</li>
+                                    {% endif %}
                                 </ul>
 
                                 <div class="card__description card__description--details">

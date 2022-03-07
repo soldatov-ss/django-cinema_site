@@ -23,6 +23,7 @@ class MoviesFilter:
     def get_countries(self):
         return Movie.objects.values_list('country', flat=True).distinct()
 
+
 class MoviesView(MoviesFilter, View):
     model = Movie
     template_name = 'web_site/index.html'
@@ -203,7 +204,7 @@ def logout_user(request):
 class Search(ListView):
     template_name = 'web_site/catalog_movies.html'
     context_object_name = 'movies'
-    paginate_by = 1
+    paginate_by = 12
 
     def get_queryset(self):
         return Movie.objects.filter(title__icontains=self.request.GET.get('q').title())
