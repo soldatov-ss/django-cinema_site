@@ -155,7 +155,6 @@ class FilterMoviesView(MoviesFilter, ListView):
         elif country is None and (year and genres):
             queryset = Movie.objects.filter(year=year, genres=genres).distinct()
         else:
-            print(f'{year=}, {genres=}')
             queryset = Movie.objects.filter(Q(genres=genres) | Q(country=country) | Q(year=year)).distinct()
 
         return queryset
@@ -167,9 +166,9 @@ class FilterMoviesView(MoviesFilter, ListView):
 
         country = None if self.request.GET.get('country') in ['Country', 'Страна'] else self.request.GET.get('country')
         year = None if self.request.GET.get('year') in ['Year', 'Год'] else self.request.GET.get('year')
-
         queryset = self.result_queryset(genres, year, country)
         return queryset
+
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -199,6 +198,10 @@ class UserLoginView(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+def handle_not_found(request, exception):
+    return render(request, '404.html')
 
 
 class Search(ListView):

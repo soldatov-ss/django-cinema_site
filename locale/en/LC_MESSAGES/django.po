@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-07 19:46+0200\n"
+"POT-Creation-Date: 2022-03-08 13:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\templates\404.html:5
+msgid "Страница не найдена"
+msgstr "Page not found"
+
+#: .\templates\404.html:18 .\web_site\templates\web_site\about.html:21
+#: .\web_site\templates\web_site\catalog_movies.html:20
+msgid "Домой"
+msgstr "Home"
 
 #: .\templates\inc\_header.html:18
 msgid "Home"
@@ -28,10 +37,12 @@ msgid "Каталог"
 msgstr "Catalog"
 
 #: .\templates\inc\_header.html:29
+#: .\web_site\templates\web_site\help_page.html:4
 msgid "Помощь"
 msgstr "Help"
 
-#: .\templates\inc\_header.html:33 .\web_site\templates\web_site\about.html:16
+#: .\templates\inc\_header.html:33 .\web_site\templates\web_site\about.html:5
+#: .\web_site\templates\web_site\about.html:16
 #: .\web_site\templates\web_site\about.html:22
 msgid "О нас"
 msgstr "About"
@@ -56,10 +67,11 @@ msgstr "Log in"
 msgid "Поиск"
 msgstr "Search"
 
-#: .\web_site\templates\web_site\about.html:21
-#: .\web_site\templates\web_site\catalog_movies.html:20
-msgid "Домой"
-msgstr "Home"
+#: .\web_site\templates\web_site\actor_detail.html:5
+#, fuzzy
+#| msgid "Актёры"
+msgid "Актёр"
+msgstr "Actors"
 
 #: .\web_site\templates\web_site\actor_detail.html:39
 #: .\web_site\templates\web_site\directors_detail.html:39
@@ -75,6 +87,7 @@ msgstr "Biography"
 msgid "Фильмы с участием актёра"
 msgstr "Movies with the actor"
 
+#: .\web_site\templates\web_site\catalog_movies.html:4
 #: .\web_site\templates\web_site\catalog_movies.html:16
 msgid "Каталог фильмов"
 msgstr "Movie catalog"
@@ -109,9 +122,19 @@ msgstr "Country"
 msgid "Найти"
 msgstr "Search"
 
+#: .\web_site\templates\web_site\directors_detail.html:5
+#, fuzzy
+#| msgid "Режиссер"
+msgid "Режиссёр"
+msgstr "Directed by"
+
 #: .\web_site\templates\web_site\directors_detail.html:66
 msgid "Фильмы снятые режиссёром"
 msgstr "Films made by the director"
+
+#: .\web_site\templates\web_site\index.html:4
+msgid "Main page"
+msgstr ""
 
 #: .\web_site\templates\web_site\index.html:22
 msgid "Лучшие фильмы"
@@ -148,6 +171,10 @@ msgstr "FILMS"
 #: .\web_site\templates\web_site\index.html:119
 msgid "МУЛЬТФИЛЬМЫ"
 msgstr "CARTOONS"
+
+#: .\web_site\templates\web_site\login.html:4
+msgid "Авторизация"
+msgstr "Authorization"
 
 #: .\web_site\templates\web_site\login.html:31
 msgid "Запомнить меня"
@@ -216,6 +243,12 @@ msgstr "Reply"
 #: .\web_site\templates\web_site\movie_detail.html:274
 msgid "Отправить"
 msgstr "Send"
+
+#: .\web_site\templates\web_site\register.html:4
+#, fuzzy
+#| msgid "Зарегистрироваться!"
+msgid "Регистрация"
+msgstr "Sign up!"
 
 #: .\web_site\templates\web_site\register.html:46
 msgid "Уже зарегестрированы?"

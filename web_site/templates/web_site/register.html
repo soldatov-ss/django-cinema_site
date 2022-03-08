@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 {% block title %}
-Регистрация
+{% trans 'Регистрация' %}
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,16 @@
                         <a href="{% url 'home' %}" class="sign__logo">
                             <img src="{% static 'img/logo.svg' %}" alt="">
                         </a>
-                        <p>{{ form.errors }}</p>
+                        {% if form.errors %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <strong style="color: #f8f8f2">{{ error|escape }}</strong>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <strong style="color: #f8f8f2">{{ error|escape }}</strong>
+                            {% endfor %}
+                        {% endif %}
 
                         <div class="sign__group">
                             {{ form.email }}
@@ -43,7 +52,7 @@
 
                         <button class="sign__btn" type="submit">Регистрация</button>
 
-                        <span class="sign__text">{% trans 'Уже зарегестрированы?' %}<a href="{% url 'login' %}">{% trans 'Войти!' %}</a></span>
+                        <span class="sign__text">{% trans 'Уже зарегестрированы?' %} <a href="{% url 'login' %}">{% trans 'Войти!' %}</a></span>
                     </form>
                     <!-- registration form -->
 

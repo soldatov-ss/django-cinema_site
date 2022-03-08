@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 {% block title %}
-Авторизация
+{% trans 'Авторизация' %}
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,16 @@
 								<img src="{% static 'img/logo.svg' %}" alt="">
 							</a>
 
-							{{ form.errors }}
+							  {% if form.errors %}
+								{% for field in form %}
+									{% for error in field.errors %}
+										<strong style="color: #f8f8f2">{{ error|escape }}</strong>
+									{% endfor %}
+								{% endfor %}
+								{% for error in form.non_field_errors %}
+										<strong style="color: #f8f8f2">{{ error|escape }}</strong>
+								{% endfor %}
+								{% endif %}
 							<div class="sign__group">
 								{{ form.username }}
 							</div>
