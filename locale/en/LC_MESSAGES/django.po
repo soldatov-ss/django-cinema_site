@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-08 13:19+0200\n"
+"POT-Creation-Date: 2022-03-09 13:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,9 @@ msgstr ""
 msgid "Страница не найдена"
 msgstr "Page not found"
 
-#: .\templates\404.html:18 .\web_site\templates\web_site\about.html:21
+#: .\templates\404.html:18
+#: .\templates\reset_password\password_reset_done.html:15
+#: .\web_site\templates\web_site\about.html:21
 #: .\web_site\templates\web_site\catalog_movies.html:20
 msgid "Домой"
 msgstr "Home"
@@ -59,13 +61,44 @@ msgstr "Change"
 msgid "Выйти"
 msgstr "Logout"
 
-#: .\templates\inc\_header.html:78 .\web_site\templates\web_site\login.html:34
+#: .\templates\inc\_header.html:78
+#: .\templates\reset_password\password_reset_complete.html:15
+#: .\web_site\templates\web_site\login.html:43
 msgid "Войти"
 msgstr "Log in"
 
 #: .\templates\inc\_header.html:104
 msgid "Поиск"
 msgstr "Search"
+
+#: .\templates\reset_password\password_reset.html:4
+#: .\templates\reset_password\password_reset_complete.html:4
+#: .\templates\reset_password\password_reset_confirm.html:4
+#: .\templates\reset_password\password_reset_done.html:4
+#, fuzzy
+#| msgid "Забыли пароль?"
+msgid "Сброс пароля"
+msgstr "Forgot password?"
+
+#: .\templates\reset_password\password_reset.html:33
+#, fuzzy
+#| msgid "Забыли пароль?"
+msgid "Сбросить пароль"
+msgstr "Forgot password?"
+
+#: .\templates\reset_password\password_reset_complete.html:14
+msgid "Ваш пароль был успешно изменен"
+msgstr "Your password has been successfully changed"
+
+#: .\templates\reset_password\password_reset_confirm.html:33
+#, fuzzy
+#| msgid "Изменить "
+msgid "Изменить пароль"
+msgstr "Change"
+
+#: .\templates\reset_password\password_reset_done.html:14
+msgid "На вашу почту были отправлены инструкции по сбросу пароля"
+msgstr "An email has been sent with instructions to reset your password"
 
 #: .\web_site\templates\web_site\actor_detail.html:5
 #, fuzzy
@@ -176,19 +209,19 @@ msgstr "CARTOONS"
 msgid "Авторизация"
 msgstr "Authorization"
 
-#: .\web_site\templates\web_site\login.html:31
+#: .\web_site\templates\web_site\login.html:40
 msgid "Запомнить меня"
 msgstr "Remember me"
 
-#: .\web_site\templates\web_site\login.html:36
+#: .\web_site\templates\web_site\login.html:45
 msgid "Еще нет аккаунта?"
 msgstr "Don't have an account yet?"
 
-#: .\web_site\templates\web_site\login.html:36
+#: .\web_site\templates\web_site\login.html:45
 msgid "Зарегистрироваться!"
 msgstr "Sign up!"
 
-#: .\web_site\templates\web_site\login.html:38
+#: .\web_site\templates\web_site\login.html:47
 msgid "Забыли пароль?"
 msgstr "Forgot password?"
 
@@ -250,10 +283,10 @@ msgstr "Send"
 msgid "Регистрация"
 msgstr "Sign up!"
 
-#: .\web_site\templates\web_site\register.html:46
+#: .\web_site\templates\web_site\register.html:55
 msgid "Уже зарегестрированы?"
 msgstr "Already registered?"
 
-#: .\web_site\templates\web_site\register.html:46
+#: .\web_site\templates\web_site\register.html:55
 msgid "Войти!"
 msgstr "Sign in!"

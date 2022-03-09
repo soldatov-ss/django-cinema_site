@@ -19,6 +19,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import handler404
+from django.contrib.auth import views as auth_views
+
+from web_site.forms import ResetPasswordForm, SetNewPasswordForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,8 +29,21 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
+    path('password-reset/',
+         auth_views.PasswordResetView.as_view(
+             template_name='reset_password/password_reset.html', form_class=ResetPasswordForm), name='password_reset'),
+    path('password-reset/done/',
+         auth_views.PasswordResetDoneView.as_view(template_name='reset_password/password_reset_done.html'),
+         name='password_reset_done'),
+    path('password-reset-confirm/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(template_name='reset_password/password_reset_confirm.html', form_class=SetNewPasswordForm),
+         name='password_reset_confirm'),
+    path('password-reset-complete/',
+         auth_views.PasswordResetCompleteView.as_view(template_name='reset_password/password_reset_complete.html'),
+         name='password_reset_complete'),
     path("", include("web_site.urls")),
 )
+
 handler404 = 'web_site.views.handle_not_found'
 
 if settings.DEBUG:
