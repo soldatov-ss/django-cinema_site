@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n static web_site_tags recaptcha3 %}
+{% load i18n static web_site_tags recaptcha3  social_share %}
 {% block title %}
 {{ movie.title }}
 {% endblock %}
@@ -119,10 +119,9 @@
                         <span class="details__share-title">Share with friends:</span>
 
                         <ul class="details__share-list">
-                            <li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
-                            <li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
-                            <li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
-                            <li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+                            <li class="facebook"><a href="#">{% post_to_facebook movie '<i class="icon ion-logo-facebook"></i>' %}</a></li>
+                            <li class="twitter"><a href="#">{% post_to_twitter 'Look at new movie' movie '<i class="icon ion-logo-twitter"></i>' %}</a></li>
+                            <li class="vk"><a href="#">{% post_to_vk  movie '<i class="icon ion-logo-vk"></i>' %}</a></li>
                         </ul>
                     </div>
                     <!-- end share -->

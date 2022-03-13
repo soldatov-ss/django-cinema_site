@@ -47,4 +47,7 @@ urlpatterns += i18n_patterns(
 handler404 = 'web_site.views.handle_not_found'
 
 if settings.DEBUG:
+    urlpatterns = [
+        path('__debug__/', include('debug_toolbar.urls')),
+    ] + urlpatterns
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -9,8 +9,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.list import MultipleObjectMixin
 
 from web_site.forms import ReviewForm, UserRegisterForm, UserLoginForm
-from web_site.models import Movie, Genre, Actor, Rating
-
+from web_site.models import Movie, Genre, Actor, Rating, Reviews
 
 class MoviesFilter:
 
@@ -49,15 +48,15 @@ class SingleMovieView(MoviesFilter, DetailView, CreateView):
 
 class AddReview(View):
 
-    def rating_for_movie(self, pk, rating_review):
+    def rating_for_movie(self, pk, rating):
+
         try:
             rating_obj = Rating.objects.get(movie_id=pk)
-            ip = self.get_client_ip(self.request)
             count_r = int(rating_obj.count_reviews) + 1
-            sum_r = int(rating_obj.sum_rating) + rating_review
+            sum_r = int(rating_obj.sum_rating) + rating
             avg_r = round(sum_r / count_r, 1)
 
-            rating_obj.ip = ip
+
             rating_obj.count_reviews = count_r
             rating_obj.sum_rating = sum_r
             rating_obj.avg_rating = avg_r
@@ -65,10 +64,9 @@ class AddReview(View):
 
         except ObjectDoesNotExist:
 
-            Rating.objects.create(ip=self.get_client_ip(self.request),
-                                  count_reviews=1,
-                                  sum_rating=rating_review,
-                                  avg_rating=rating_review,
+            Rating.objects.create(count_reviews=1,
+                                  sum_rating=rating,
+                                  avg_rating=rating,
                                   movie_id=pk)
 
     def get_client_ip(self, request):
@@ -82,11 +80,19 @@ class AddReview(View):
     def post(self, request, pk):
         form = ReviewForm(request.POST)
         movie = Movie.objects.get(id=pk)
+
         if form.is_valid():
             form = form.save(commit=False)
+
             if form.rating:
-                form.rating = 2 * form.rating
-                self.rating_for_movie(pk, int(form.rating))
+                ip = self.get_client_ip(self.request)
+                user_old_rating = Reviews.objects.filter(movie=pk, ip=ip)
+                if user_old_rating:
+                    form.rating = 0
+                else:
+                    form.rating = 2 * form.rating
+                    self.rating_for_movie(pk, int(form.rating))
+                form.ip = ip
 
             if request.POST.get('parent', None):
                 form.parent_id = int(request.POST.get('parent'))

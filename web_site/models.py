@@ -100,7 +100,6 @@ class MovieShots(models.Model):
 
 
 class Rating(models.Model):
-    ip = models.CharField("IP адрес", max_length=15)
     count_reviews = models.IntegerField('Кол-во оценок', default=0)
     sum_rating = models.BigIntegerField('Кол-во звезд', default=0)
     avg_rating = models.FloatField('Средняя оценка', default=0)
@@ -115,6 +114,7 @@ class Rating(models.Model):
 
 
 class Reviews(models.Model):
+    ip = models.CharField("IP адрес", max_length=15, default=0)
     name = models.CharField("Имя", max_length=100)
     text = models.TextField("Сообщение", max_length=5000)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')

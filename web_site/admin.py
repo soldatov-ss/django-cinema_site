@@ -72,7 +72,7 @@ class CategoryAdmin(TranslationAdmin):
 
 @admin.register(Reviews)
 class ReviewsAdmin(admin.ModelAdmin):
-    list_display = ('movie', 'name', 'parent', 'rating')
+    list_display = ('movie', 'name', 'ip', 'parent', 'rating')
     list_filter = ('parent', 'created_at', 'movie', 'rating')
     readonly_fields = ('movie', 'name', 'rating', 'parent')
 
@@ -92,5 +92,5 @@ class MovieShorts(TranslationAdmin):
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
-    list_display = ('movie', 'avg_rating', 'ip')
-    readonly_fields = ('movie', 'avg_rating', 'ip', 'count_reviews', 'sum_rating')
+    list_display = ('movie', 'avg_rating')
+    readonly_fields = ('movie', 'avg_rating', 'count_reviews', 'sum_rating')

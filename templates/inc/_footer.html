@@ -1,4 +1,4 @@
-
+{% load social_share %}
 <footer class="footer">
     <div class="container">
         <div class="row">
@@ -33,10 +33,9 @@
                     <li><a href="mailto:support@moviego.com">support@gmail.com</a></li>
                 </ul>
                 <ul class="footer__social">
-                    <li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
-                    <li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
-                    <li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
-                    <li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+                    <li class="facebook"><a href="#">{% post_to_facebook url '<i class="icon ion-logo-facebook"></i>' %}</a></li>
+                    <li class="twitter"><a href="#">{% post_to_twitter url 'Look at new movie' '<i class="icon ion-logo-twitter"></i>' %}</a></li>
+                    <li class="vk"><a href="#">{% post_to_vk url '<i class="icon ion-logo-vk"></i>' %}</a></li>
                 </ul>
             </div>
             <!-- end footer list -->
