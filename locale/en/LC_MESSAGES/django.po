@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-09 13:44+0200\n"
+"POT-Creation-Date: 2022-03-14 14:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -259,23 +259,27 @@ msgstr "Budget"
 msgid "Кассовые сборы в мире"
 msgstr "World Premiere"
 
-#: .\web_site\templates\web_site\movie_detail.html:153
-#: .\web_site\templates\web_site\movie_detail.html:177
+#: .\web_site\templates\web_site\movie_detail.html:152
+#: .\web_site\templates\web_site\movie_detail.html:176
 msgid "Отзывы"
 msgstr "Reviews"
 
-#: .\web_site\templates\web_site\movie_detail.html:158
-#: .\web_site\templates\web_site\movie_detail.html:181
+#: .\web_site\templates\web_site\movie_detail.html:157
+#: .\web_site\templates\web_site\movie_detail.html:180
 msgid "Кадры с фильма"
 msgstr "Movie shorts"
 
-#: .\web_site\templates\web_site\movie_detail.html:219
+#: .\web_site\templates\web_site\movie_detail.html:218
 msgid "Ответить"
 msgstr "Reply"
 
-#: .\web_site\templates\web_site\movie_detail.html:274
+#: .\web_site\templates\web_site\movie_detail.html:273
 msgid "Отправить"
 msgstr "Send"
+
+#: .\web_site\templates\web_site\movie_detail.html:306
+msgid "Вам также может понравится"
+msgstr "You may also like"
 
 #: .\web_site\templates\web_site\register.html:4
 #, fuzzy

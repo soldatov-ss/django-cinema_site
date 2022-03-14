@@ -7,7 +7,7 @@ from .models import Actor, Category, Movie, Genre, Reviews, Rating, MovieShots
 
 class ReviewInline(admin.TabularInline):
     model = Reviews
-    extra = 1
+    extra = 0
     readonly_fields = ('name',  'movie', 'parent')
 
 

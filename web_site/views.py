@@ -6,10 +6,12 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic.edit import BaseCreateView
 from django.views.generic.list import MultipleObjectMixin
 
 from web_site.forms import ReviewForm, UserRegisterForm, UserLoginForm
 from web_site.models import Movie, Genre, Actor, Rating, Reviews
+
 
 class MoviesFilter:
 
@@ -39,11 +41,16 @@ class MoviesView(MoviesFilter, View):
         return render(request, 'web_site/index.html', context)
 
 
-class SingleMovieView(MoviesFilter, DetailView, CreateView):
+class SingleMovieView(MoviesFilter, DetailView, BaseCreateView):
     model = Movie
     template_name = 'web_site/movie_detail.html'
     context_object_name = 'movie'
     form_class = ReviewForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recomended_films'] = Movie.objects.filter(genres__in=(kwargs['object'].genres.all().values_list('pk')))[:6]
+        return context
 
 
 class AddReview(View):
@@ -55,7 +62,6 @@ class AddReview(View):
             count_r = int(rating_obj.count_reviews) + 1
             sum_r = int(rating_obj.sum_rating) + rating
             avg_r = round(sum_r / count_r, 1)
-
 
             rating_obj.count_reviews = count_r
             rating_obj.sum_rating = sum_r
@@ -174,7 +180,6 @@ class FilterMoviesView(MoviesFilter, ListView):
         year = None if self.request.GET.get('year') in ['Year', 'Год'] else self.request.GET.get('year')
         queryset = self.result_queryset(genres, year, country)
         return queryset
-
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
