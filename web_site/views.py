@@ -30,11 +30,11 @@ class MoviesView(MoviesFilter, View):
     template_name = 'web_site/index.html'
 
     def get(self, request):
-        carousel_movies = Movie.objects.order_by('kinopoisk_rating')[:12]
-        premieres = Movie.objects.order_by('-world_premiere')[:8]
-        new_movies = Movie.objects.order_by('-year')[:18]
+        carousel_movies = Movie.objects.order_by('kinopoisk_rating')[:12].prefetch_related('genres')
+        premieres = Movie.objects.order_by('-world_premiere')[:8].prefetch_related('genres').select_related('category')
+        new_movies = Movie.objects.order_by('-year')[:18].prefetch_related('genres')
         cartoon_id = Genre.objects.get(slug='multfilm')
-        cartoons_list = Movie.objects.filter(genres=cartoon_id).order_by('-year')[:12]
+        cartoons_list = Movie.objects.filter(genres=cartoon_id).order_by('-year')[:12].prefetch_related('genres')
 
         context = {'carousel_list': carousel_movies, 'premieres_list': premieres, 'cartoons_list': cartoons_list,
                    'new_movies_list': new_movies}
@@ -114,8 +114,9 @@ class ActorDetailView(DetailView, MultipleObjectMixin):
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        object_list = Movie.objects.filter(actors=self.object)
+        object_list = Movie.objects.filter(actors=self.object).prefetch_related('genres')
         context = super().get_context_data(object_list=object_list, **kwargs)
+
         return context
 
 
@@ -126,7 +127,7 @@ class DirectorDetailView(DetailView, MultipleObjectMixin):
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        object_list = Movie.objects.filter(actors=self.object)
+        object_list = Movie.objects.filter(actors=self.object).prefetch_related('genres')
         context = super().get_context_data(object_list=object_list, **kwargs)
         return context
 
@@ -140,9 +141,9 @@ class CatalogView(MoviesFilter, ListView):
     def get_queryset(self):
         if self.kwargs.get('slug'):
             genres = Genre.objects.get(slug=self.kwargs['slug'])
-            queryset = Movie.objects.filter(genres=genres.id)
+            queryset = Movie.objects.filter(genres=genres.id).prefetch_related('genres')
         else:
-            queryset = Movie.objects.order_by('year')
+            queryset = Movie.objects.order_by('year').prefetch_related('genres')
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -159,15 +160,15 @@ class FilterMoviesView(MoviesFilter, ListView):
 
     def result_queryset(self, genres, year, country):
         if year and genres and country:
-            queryset = Movie.objects.filter(genres=genres, year=year, country=country)
+            queryset = Movie.objects.filter(genres=genres, year=year, country=country).prefetch_related('genres')
         elif year is None and (genres and country):
-            queryset = Movie.objects.filter(genres=genres, country=country).distinct()
+            queryset = Movie.objects.filter(genres=genres, country=country).distinct().prefetch_related('genres')
         elif genres is None and (year and country):
-            queryset = Movie.objects.filter(year=year, country=country).distinct()
+            queryset = Movie.objects.filter(year=year, country=country).distinct().prefetch_related('genres')
         elif country is None and (year and genres):
-            queryset = Movie.objects.filter(year=year, genres=genres).distinct()
+            queryset = Movie.objects.filter(year=year, genres=genres).distinct().prefetch_related('genres')
         else:
-            queryset = Movie.objects.filter(Q(genres=genres) | Q(country=country) | Q(year=year)).distinct()
+            queryset = Movie.objects.filter(Q(genres=genres) | Q(country=country) | Q(year=year)).distinct().prefetch_related('genres')
 
         return queryset
 

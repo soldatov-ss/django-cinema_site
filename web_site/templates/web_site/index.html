@@ -51,7 +51,7 @@
                                     {% endfor %}
 									</span>
                                 <span class="card__rate"><i
-                                        class="icon ion-ios-star"></i>{% get_movie_rating movie.id %}</span>
+                                        class="icon ion-ios-star"></i>{{ movie.kinopoisk_rating }}</span>
                             </div>
                         </div>
                         <!-- end card -->
@@ -156,7 +156,7 @@
 											</span>
 
                                         <div class="card__wrap">
-                                            <span class="card__rate"><i class="icon ion-ios-star"></i>{% get_movie_rating movie.id %}</span>
+                                            <span class="card__rate"><i class="icon ion-ios-star"></i>{{ movie.kinopoisk_rating }}</span>
 
                                             <ul class="card__list">
                                                 <li>{{ movie.category }}</li>
@@ -196,7 +196,7 @@
                                         <a href="{{ item.get_absolute_url }}">{{ item.name|title }}</a>
                                     {% endfor %}
 									</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>{% get_movie_rating new_movie.id %}</span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>{{ new_movie.kinopoisk_rating }}</span>
                             </div>
                         </div>
 
