@@ -55,6 +55,7 @@ class Genre(models.Model):
 class Movie(models.Model):
     title = models.CharField("Название", max_length=100)
     tagline = models.CharField("Слоган", max_length=100, blank=True, default='')
+    kinopoisk_id = models.IntegerField('Кинопоиск ID', default=0, unique=True)
     description = models.TextField("Описание")
     poster = models.ImageField("Постер", upload_to="movies/")
     year = models.PositiveSmallIntegerField("Дата выхода", default=2019)

@@ -87,29 +87,10 @@
 
             <!-- player -->
             <div class="col-12 col-xl-12">
-                <video controls crossorigin playsinline
-                       poster="../../../cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player">
-                    <!-- Video files -->
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
-                            type="video/mp4" size="576">
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
-                            type="video/mp4" size="720">
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4"
-                            type="video/mp4" size="1080">
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1440p.mp4"
-                            type="video/mp4" size="1440">
-
-                    <!-- Caption files -->
-                    <track kind="captions" label="English" srclang="en"
-                           src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
-                           default>
-                    <track kind="captions" label="Français" srclang="fr"
-                           src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
-
-                </video>
+                <div data-kinopoisk="{{ movie.kinopoisk_id }}" id="kinobd"></div>
+                <script src="https://kinobd.ru/js/player_.js"></script>
             </div>
             <!-- end player -->
-
 
             <div class="col-12">
                 <div class="details__wrap">
@@ -229,8 +210,10 @@
                                             </div>
                                             <p class="comments__text">{{ answer.text }}</p>
                                         </li>
+
                                         {% endfor %}
                                         {% endfor %}
+
                                     </ul>
 
                                     <form action="{% url 'add_review' movie.id %}" method="post"

@@ -32,7 +32,7 @@ class MovieAdmin(TranslationAdmin):
     save_on_top = True
     inlines = [MovieShortsInline, ReviewInline]
     fields = (
-        ('title', 'tagline'), ('description'), ('poster', 'get_poster'), ('year', 'world_premiere', 'country'),
+        ('title', 'tagline', 'kinopoisk_id'), ('description'), ('poster', 'get_poster'), ('year', 'world_premiere', 'country'),
         ('directors', 'actors', 'genres',),
         ('budget', 'fess_in_world',), ('kinopoisk_rating',), ('category', 'running_time'),
         ('slug', 'draft')
