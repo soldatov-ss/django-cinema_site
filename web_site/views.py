@@ -49,7 +49,9 @@ class SingleMovieView(MoviesFilter, DetailView, BaseCreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['recomended_films'] = Movie.objects.filter(genres__in=(kwargs['object'].genres.all().values_list('pk')))[:6]
+        context['reviews'] = Reviews.objects.filter(movie=kwargs['object'].id, parent__isnull=True).all()
+        context['review_children'] = Reviews.objects.filter(movie=kwargs['object'].id, parent__isnull=False).all()
+        context['recommended_films'] = Movie.objects.filter(genres__in=(kwargs['object'].genres.all().values_list('pk')))[:6]
         return context
 
 

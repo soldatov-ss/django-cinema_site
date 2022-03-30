@@ -180,7 +180,7 @@
                             <div class="col-12">
                                 <div class="comments">
                                     <ul class="comments__list">
-                                        {% for review in movie.get_review %}
+                                        {% for review in reviews %}
                                         <li class="comments__item">
                                             <div class="comments__autor">
                                                 <img class="comments__avatar" src="{% static 'img/user.png' %}" alt="">
@@ -201,16 +201,18 @@
                                                 </a>
                                             </div>
                                         </li>
-                                        {% for answer in review.reviews_set.all %}
-                                        <li class="comments__item comments__item--answer">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="{% static 'img/user.png' %}" alt="">
-                                                <span class="comments__name">{{ answer.name }}</span>
-                                                <span class="comments__time">{{ answer.created_at }}</span>
-                                            </div>
-                                            <p class="comments__text">{{ answer.text }}</p>
-                                        </li>
 
+                                        {% for answer in review_children %}
+                                            {% if answer.parent_id == review.id %}
+                                                <li class="comments__item comments__item--answer">
+                                                    <div class="comments__autor">
+                                                        <img class="comments__avatar" src="{% static 'img/user.png' %}" alt="">
+                                                        <span class="comments__name">{{ answer.name }}</span>
+                                                        <span class="comments__time">{{ answer.created_at }}</span>
+                                                    </div>
+                                                    <p class="comments__text">{{ answer.text }}</p>
+                                                </li>
+                                            {% endif %}
                                         {% endfor %}
                                         {% endfor %}
 
@@ -289,7 +291,7 @@
                         <h2 class="section__title section__title--sidebar">{% trans 'Вам также может понравится' %}</h2>
                     </div>
                     <!-- end section title -->
-                    {% for film in recomended_films %}
+                    {% for film in recommended_films %}
                         <!-- card -->
                         <div class="col-6 col-sm-4 col-lg-6">
                             <div class="card">
