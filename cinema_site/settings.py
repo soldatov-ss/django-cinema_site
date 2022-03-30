@@ -155,3 +155,10 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 
 INTERNAL_IPS = ["127.0.0.1",]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'django_cache')
+    }
+}
