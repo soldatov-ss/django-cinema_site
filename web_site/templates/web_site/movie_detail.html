@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
-{% load i18n static web_site_tags recaptcha3  social_share %}
+{% load i18n static web_site_tags recaptcha3  social_share cache %}
 {% block title %}
 {{ movie.title }}
 {% endblock %}
 
 {% block content %}
 <!-- details -->
+{% cache 500 dascription %}
 <section class="section details">
     <!-- details background -->
     <div class="details__bg" data-bg="{% static 'img/home/home__bg.jpg' %}"></div>
@@ -167,7 +168,7 @@
             </div>
         </div>
     </div>
-
+    {% endcache %}
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-8 col-xl-8">
@@ -262,6 +263,7 @@
                             <!-- end reviews -->
                         </div>
                     </div>
+                    {% cache 500 movieshots_and_recommend %}
                     <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
                         <!-- project gallery -->
                         <div class="gallery" itemscope>
@@ -310,6 +312,7 @@
                     {% endfor %}
                 </div>
             </div>
+            {% endcache %}
             <!-- end sidebar -->
         </div>
     </div>
