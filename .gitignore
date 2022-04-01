@@ -5,9 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
-media/actors/
-media/movies/
-media/movie_shots/
+media/*
 # Distribution / packaging
 .Python
 build/
