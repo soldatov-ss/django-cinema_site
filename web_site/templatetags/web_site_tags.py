@@ -12,3 +12,7 @@ def get_movie_rating(movie_id):
         return movie.avg_rating
     except ObjectDoesNotExist:
         return 0
+
+@register.filter
+def correct_num(num: int):
+    return f'{num:,.0f}'.replace(',', ' ')

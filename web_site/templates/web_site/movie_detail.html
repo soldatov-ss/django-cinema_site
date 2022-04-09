@@ -6,7 +6,7 @@
 
 {% block content %}
 <!-- details -->
-{% cache 500 dascription %}
+
 <section class="section details">
     <!-- details background -->
     <div class="details__bg" data-bg="{% static 'img/home/home__bg.jpg' %}"></div>
@@ -63,15 +63,15 @@
                                         <a href="{{ item.get_absolute_url  }}">{{ item.name|title }}</a>
                                         {% endfor %}
                                     </li>
+                                    <li><span>{% trans 'Рейтинг Кинопоиск' %}:</span>★ {{ movie.kinopoisk_rating }}</li>
                                     <li><span>{% trans 'Премьера в мире' %}:</span> {{ movie.world_premiere }}</li>
                                     <li><span>{% trans 'Продолжительность' %}:</span> {{ movie.running_time}} мин.</li>
                                     <li><span>{% trans 'Страна' %}:</span>{{ movie.country }}</li>
-                                    <li><span>{% trans 'Рейтинг Кинопоиск' %}:</span>★ {{ movie.kinopoisk_rating }}</li>
                                     {% if movie.budget %}
-                                        <li><span>{% trans 'Бюджет' %}:</span>{{ movie.budget }} $</li>
+                                        <li><span>{% trans 'Бюджет' %}:</span>$ {{ movie.budget|correct_num }} </li>
                                     {% endif %}
                                     {% if movie.fess_in_world %}
-                                        <li><span>{% trans 'Кассовые сборы в мире' %}:</span>{{ movie.fess_in_world }} $</li>
+                                        <li><span>{% trans 'Кассовые сборы в мире' %}:</span>$ {{ movie.fess_in_world|correct_num }}</li>
                                     {% endif %}
                                 </ul>
 
@@ -168,7 +168,7 @@
             </div>
         </div>
     </div>
-    {% endcache %}
+
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-8 col-xl-8">
@@ -263,7 +263,7 @@
                             <!-- end reviews -->
                         </div>
                     </div>
-                    {% cache 500 movieshots_and_recommend %}
+
                     <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
                         <!-- project gallery -->
                         <div class="gallery" itemscope>
@@ -312,7 +312,7 @@
                     {% endfor %}
                 </div>
             </div>
-            {% endcache %}
+
             <!-- end sidebar -->
         </div>
     </div>

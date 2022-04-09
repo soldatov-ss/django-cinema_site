@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load  static  %}
+{% load  static i18n %}
 {% block title %}
 {% trans 'Помощь' %}
 {% endblock %}
@@ -12,13 +12,13 @@
             <div class="col-12">
                 <div class="section__wrap">
                     <!-- section title -->
-                    <h2 class="section__title">Помощь</h2>
+                    <h2 class="section__title">{% trans 'Помощь' %}</h2>
                     <!-- end section title -->
 
                     <!-- breadcrumb -->
                     <ul class="breadcrumb">
-                        <li class="breadcrumb__item"><a href="{% url 'home' %}">Домой</a></li>
-                        <li class="breadcrumb__item breadcrumb__item--active">Помощь</li>
+                        <li class="breadcrumb__item"><a href="{% url 'home' %}">{% trans 'Домой' %}</a></li>
+                        <li class="breadcrumb__item breadcrumb__item--active">{% trans 'Помощь' %}</li>
                     </ul>
                     <!-- end breadcrumb -->
                 </div>
