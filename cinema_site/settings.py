@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'snowpenguin.django.recaptcha3',
     'django_social_share',
-    "debug_toolbar",
     'web_site'
 ]
 
@@ -42,7 +41,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'cinema_site.urls'
@@ -123,8 +121,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RECAPTCHA_PRIVATE_KEY = '6LeLb7MeAAAAAL3h3cKttkz3OVLuNkNlqQElz-6F'
-RECAPTCHA_PUBLIC_KEY = '6LeLb7MeAAAAAI7ej6WKJVJbxKU95GggZ9kXQeEB'
+RECAPTCHA_PRIVATE_KEY = 'your key'
+RECAPTCHA_PUBLIC_KEY = 'your key'
 RECAPTCHA_DEFAULT_ACTION = 'generic'
 RECAPTCHA_SCORE_THRESHOLD = 0.5
 RECAPTCHA_LANGUAGE = 'en'
@@ -136,7 +134,6 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 
-INTERNAL_IPS = ["127.0.0.1",]
 
 CACHES = {
     'default': {
