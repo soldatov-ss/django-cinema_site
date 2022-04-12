@@ -369,117 +369,6 @@ $(document).ready(function () {
 	// execute above function
 	initPhotoSwipeFromDOM('.gallery');
 
-	/*==============================
-	Player
-	==============================*/
-	function initializePlayer() {
-		if ($('#player').length) {
-			const player = new Plyr('#player');
-		} else {
-			return false;
-		}
-		return false;
-	}
-	$(window).on('load', initializePlayer());
-
-	/*==============================
-	Range sliders
-	==============================*/
-	/*1*/
-	function initializeFirstSlider() {
-		if ($('#filter__years').length) {
-			var firstSlider = document.getElementById('filter__years');
-			noUiSlider.create(firstSlider, {
-				range: {
-					'min': 2000,
-					'max': 2018
-				},
-				step: 1,
-				connect: true,
-				start: [2005, 2015],
-				format: wNumb({
-					decimals: 0,
-				})
-			});
-			var firstValues = [
-				document.getElementById('filter__years-start'),
-				document.getElementById('filter__years-end')
-			];
-			firstSlider.noUiSlider.on('update', function( values, handle ) {
-				firstValues[handle].innerHTML = values[handle];
-			});
-		} else {
-			return false;
-		}
-		return false;
-	}
-	$(window).on('load', initializeFirstSlider());
-
-	/*2*/
-	function initializeSecondSlider() {
-		if ($('#filter__imbd').length) {
-			var secondSlider = document.getElementById('filter__imbd');
-			noUiSlider.create(secondSlider, {
-				range: {
-					'min': 0,
-					'max': 10
-				},
-				step: 0.1,
-				connect: true,
-				start: [2.5, 8.6],
-				format: wNumb({
-					decimals: 1,
-				})
-			});
-
-			var secondValues = [
-				document.getElementById('filter__imbd-start'),
-				document.getElementById('filter__imbd-end')
-			];
-
-			secondSlider.noUiSlider.on('update', function( values, handle ) {
-				secondValues[handle].innerHTML = values[handle];
-			});
-
-			$('.filter__item-menu--range').on('click.bs.dropdown', function (e) {
-				e.stopPropagation();
-				e.preventDefault();
-			});
-		} else {
-			return false;
-		}
-		return false;
-	}
-	$(window).on('load', initializeSecondSlider());
-
-	/*3*/
-	function initializeThirdSlider() {
-		if ($('#slider__rating').length) {
-			var thirdSlider = document.getElementById('slider__rating');
-			noUiSlider.create(thirdSlider, {
-				range: {
-					'min': 0,
-					'max': 10
-				},
-				connect: [true, false],
-				step: 0.1,
-				start: 8.6,
-				format: wNumb({
-					decimals: 1,
-				})
-			});
-
-			var thirdValue = document.getElementById('form__slider-value');
-
-			thirdSlider.noUiSlider.on('update', function( values, handle ) {
-				thirdValue.innerHTML = values[handle];
-			});
-		} else {
-			return false;
-		}
-		return false;
-	}
-	$(window).on('load', initializeThirdSlider());
 });
 
 // Ответить на комментарий
@@ -543,3 +432,78 @@ function setRating(rating) {
 		});
 	}
 }
+
+// Лайки и дизайлки
+// Получение переменной cookie по имени
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Настройка AJAX
+$(function () {
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": getCookie("csrftoken") }
+    });
+});
+
+function like()
+{
+    var like = $(this);
+    var type = like.data('type');
+    var pk = like.data('id');
+    var action = like.data('action');
+    var dislike = like.next();
+
+    $.ajax({
+        url : type +"/" + pk + "/" + action + "/",
+        type : 'POST',
+        data : { 'obj' : pk },
+
+        success : function (json) {
+            like.find("[data-count='like']").text(json.like_count);
+            dislike.find("[data-count='dislike']").text(json.dislike_count);
+        }
+    });
+
+    return false;
+}
+
+function dislike()
+{
+    var dislike = $(this);
+    var type = dislike.data('type');
+    var pk = dislike.data('id');
+    var action = dislike.data('action');
+    var like = dislike.prev();
+
+    $.ajax({
+        url : type +"/" + pk + "/" + action + "/",
+        type : 'POST',
+        data : { 'obj' : pk },
+
+        success : function (json) {
+            dislike.find("[data-count='dislike']").text(json.dislike_count);
+            like.find("[data-count='like']").text(json.like_count);
+        }
+    });
+
+    return false;
+}
+
+// Подключение обработчиков
+$(function() {
+    $('[data-action="like"]').click(like);
+    $('[data-action="dislike"]').click(dislike);
+});

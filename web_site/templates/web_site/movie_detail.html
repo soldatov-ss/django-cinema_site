@@ -194,6 +194,26 @@
                                             </div>
                                             <p class="reviews__text">{{ review.text }}</p>
                                             <div class="comments__actions">
+
+                                                <div class="comments__rate">
+                                                    <button type="button">
+                                                        <div data-id="{{ review.id }}" data-type="review"
+                                                             data-action="like" title="Нравится">
+                                                            <i class="icon ion-md-thumbs-up"></i>
+                                                            <span data-count="like">{{ review.votes.likes.count }}</span>
+                                                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                                                        </div>
+                                                    </button>
+                                                    <button type="button">
+                                                        <div data-id="{{ review.id }}" data-type="review"
+                                                             data-action="dislike" title="Не нравится">
+                                                            <span data-count="dislike">{{ review.votes.dislikes.count }}</span>
+                                                            <i class="icon ion-md-thumbs-down"></i>
+                                                            <span class="glyphicon glyphicon-thumbs-down"></span>
+                                                        </div>
+                                                    </button>
+                                                </div>
+
                                                 <a href="#formReview"
                                                    onclick="addReview('{{ review.name }}', '{{ review.id }}')">
                                                     <button type="button">
@@ -220,8 +240,7 @@
                                     </ul>
 
                                     <form action="{% url 'add_review' movie.id %}" method="post"
-                                          class="form form_margin"
-                                          id="formReview">
+                                          class="form form_margin"  id="formReview">
                                         <input type="hidden" value='' name="parent" id="contactparent">
                                         {% csrf_token %}
                                         {% if request.user.is_authenticated %}

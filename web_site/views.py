@@ -1,7 +1,11 @@
+import json
+
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -10,7 +14,16 @@ from django.views.generic.edit import BaseCreateView
 from django.views.generic.list import MultipleObjectMixin
 
 from web_site.forms import ReviewForm, UserRegisterForm, UserLoginForm
-from web_site.models import Movie, Genre, Actor, Rating, Reviews
+from web_site.models import Movie, Genre, Actor, Rating, Reviews, LikeDislike
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 
 class MoviesFilter:
@@ -19,7 +32,7 @@ class MoviesFilter:
         return Genre.objects.all()
 
     def get_years(self):
-        return Movie.objects.values_list('year', flat=True).distinct()
+        return Movie.objects.values_list('year', flat=True).distinct().order_by('year')
 
     def get_countries(self):
         return Movie.objects.values_list('country', flat=True).distinct()
@@ -51,7 +64,8 @@ class SingleMovieView(MoviesFilter, DetailView, BaseCreateView):
         context = super().get_context_data(**kwargs)
         context['reviews'] = Reviews.objects.filter(movie=kwargs['object'].id, parent__isnull=True).all()
         context['review_children'] = Reviews.objects.filter(movie=kwargs['object'].id, parent__isnull=False).all()
-        context['recommended_films'] = Movie.objects.filter(genres__in=(kwargs['object'].genres.all().values_list('pk')))[:6]
+        context['recommended_films'] = Movie.objects.filter(
+            genres__in=(kwargs['object'].genres.all().values_list('pk')))[:6]
         return context
 
 
@@ -77,14 +91,6 @@ class AddReview(View):
                                   avg_rating=rating,
                                   movie_id=pk)
 
-    def get_client_ip(self, request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
-
     def post(self, request, pk):
         form = ReviewForm(request.POST)
         movie = Movie.objects.get(id=pk)
@@ -93,7 +99,7 @@ class AddReview(View):
             form = form.save(commit=False)
 
             if form.rating:
-                ip = self.get_client_ip(self.request)
+                ip = get_client_ip(self.request)
                 user_old_rating = Reviews.objects.filter(movie=pk, ip=ip)
                 if user_old_rating:
                     form.rating = 0
@@ -129,7 +135,7 @@ class DirectorDetailView(DetailView, MultipleObjectMixin):
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        object_list = Movie.objects.filter(actors=self.object).prefetch_related('genres')
+        object_list = Movie.objects.filter(directors=self.object).prefetch_related('genres')
         context = super().get_context_data(object_list=object_list, **kwargs)
         return context
 
@@ -170,7 +176,8 @@ class FilterMoviesView(MoviesFilter, ListView):
         elif country is None and (year and genres):
             queryset = Movie.objects.filter(year=year, genres=genres).distinct().prefetch_related('genres')
         else:
-            queryset = Movie.objects.filter(Q(genres=genres) | Q(country=country) | Q(year=year)).distinct().prefetch_related('genres')
+            queryset = Movie.objects.filter(
+                Q(genres=genres) | Q(country=country) | Q(year=year)).distinct().prefetch_related('genres')
 
         return queryset
 
@@ -238,3 +245,37 @@ def about_us(request):
 
 def faq_page(request):
     return render(request, 'web_site/help_page.html')
+
+
+class VotesView(View):
+    model = Reviews  # Модель данных - Статьи или Комментарии
+    vote_type = None  # Тип комментария Like/Dislike
+
+    def post(self, request, pk, slug):
+        obj = self.model.objects.get(pk=pk)
+        print(slug, '*' * 100)
+        # GenericForeignKey не поддерживает метод get_or_create
+        try:
+            likedislike = LikeDislike.objects.get(content_type=ContentType.objects.get_for_model(
+                obj), object_id=obj.id, user_ip=get_client_ip(request))
+            if likedislike.vote is not self.vote_type:
+                likedislike.vote = self.vote_type
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except LikeDislike.DoesNotExist:
+
+            obj.votes.create(user_ip=get_client_ip(request), vote=self.vote_type)
+            result = True
+
+        return HttpResponse(
+            json.dumps({
+                "result": result,
+                "like_count": obj.votes.likes().count(),
+                "dislike_count": obj.votes.dislikes().count(),
+                "sum_rating": obj.votes.sum_rating()
+            }),
+            content_type="application/json"
+        )

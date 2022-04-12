@@ -2,13 +2,13 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from modeltranslation.admin import TranslationAdmin
 
-from .models import Actor, Category, Movie, Genre, Reviews, Rating, MovieShots
+from .models import Actor, Category, Movie, Genre, Reviews, Rating, MovieShots, LikeDislike
 
 
 class ReviewInline(admin.TabularInline):
     model = Reviews
     extra = 0
-    readonly_fields = ('name',  'movie', 'parent')
+    readonly_fields = ('name', 'movie', 'parent')
 
 
 class MovieShortsInline(admin.TabularInline):
@@ -32,7 +32,8 @@ class MovieAdmin(TranslationAdmin):
     save_on_top = True
     inlines = [MovieShortsInline, ReviewInline]
     fields = (
-        ('title', 'tagline', 'kinopoisk_id'), ('description'), ('poster', 'get_poster'), ('year', 'world_premiere', 'country'),
+        ('title', 'tagline', 'kinopoisk_id'), ('description'), ('poster', 'get_poster'),
+        ('year', 'world_premiere', 'country'),
         ('directors', 'actors', 'genres',),
         ('budget', 'fess_in_world',), ('kinopoisk_rating',), ('category', 'running_time'),
         ('slug', 'draft')
@@ -94,3 +95,8 @@ class MovieShorts(TranslationAdmin):
 class RatingAdmin(admin.ModelAdmin):
     list_display = ('movie', 'avg_rating')
     readonly_fields = ('movie', 'avg_rating', 'count_reviews', 'sum_rating')
+
+
+@admin.register(LikeDislike)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ('user_ip', 'content_object', 'object_id')
