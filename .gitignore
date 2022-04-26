@@ -30,6 +30,10 @@ django_cache/
 cinema_site/local_settings.py
 cinema_site/prod_settings.py
 web_site/migrations/
+static/admin
+static/rest_framework
+static/debug_toolbar
+static/modeltranslation
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
