@@ -29,7 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'snowpenguin.django.recaptcha3',
     'django_social_share',
-    'web_site'
+    'web_site',
+    'rest_framework',
+    'django_filters',
+    'RestAPI',
 ]
 
 MIDDLEWARE = [
@@ -141,6 +144,15 @@ CACHES = {
         'LOCATION': os.path.join(BASE_DIR, 'django_cache')
     }
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 5
+}
+
 
 try:
     from .local_settings import *

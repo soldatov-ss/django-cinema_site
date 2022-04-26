@@ -26,6 +26,8 @@ from web_site.forms import ResetPasswordForm, SetNewPasswordForm
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
+    path('restapi/', include('RestAPI.urls')),
+    path('api-auth/', include('rest_framework.urls')),
 ]
 
 urlpatterns += i18n_patterns(
@@ -47,4 +49,7 @@ urlpatterns += i18n_patterns(
 handler404 = 'web_site.views.handle_not_found'
 
 if settings.DEBUG:
+    urlpatterns = [
+        path('__debug__/', include('debug_toolbar.urls')),
+    ] + urlpatterns
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -124,8 +124,8 @@ class Reviews(models.Model):
     text = models.TextField("Сообщение", max_length=5000)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     rating = models.IntegerField('Оценка пользователя', blank=True, default=0)
-    parent = models.ForeignKey('self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True)
-    movie = models.ForeignKey(Movie, verbose_name="фильм", on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True, related_name='children')
+    movie = models.ForeignKey(Movie, verbose_name="фильм", on_delete=models.CASCADE, related_name='reviews')
     votes = GenericRelation('LikeDislike', related_query_name='reviews')
 
     def __str__(self):

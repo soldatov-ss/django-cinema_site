@@ -29,13 +29,13 @@ def get_client_ip(request):
 class MoviesFilter:
 
     def get_genres(self):
-        return Genre.objects.all()
+        return Genre.objects.all().order_by('name')
 
     def get_years(self):
-        return Movie.objects.values_list('year', flat=True).distinct().order_by('year')
+        return Movie.objects.values_list('year', flat=True).distinct().order_by('-year')
 
     def get_countries(self):
-        return Movie.objects.values_list('country', flat=True).distinct()
+        return Movie.objects.values_list('country', flat=True).distinct().order_by('country')
 
 
 class MoviesView(MoviesFilter, View):
@@ -65,7 +65,7 @@ class SingleMovieView(MoviesFilter, DetailView, BaseCreateView):
         context['reviews'] = Reviews.objects.filter(movie=kwargs['object'].id, parent__isnull=True).all()
         context['review_children'] = Reviews.objects.filter(movie=kwargs['object'].id, parent__isnull=False).all()
         context['recommended_films'] = Movie.objects.filter(
-            genres__in=(kwargs['object'].genres.all().values_list('pk')))[:6]
+            genres__in=(kwargs['object'].genres.all().values_list('pk').distinct()))[:6]
         return context
 
 
@@ -188,7 +188,7 @@ class FilterMoviesView(MoviesFilter, ListView):
 
         country = None if self.request.GET.get('country') in ['Country', 'Страна'] else self.request.GET.get('country')
         year = None if self.request.GET.get('year') in ['Year', 'Год'] else self.request.GET.get('year')
-        queryset = self.result_queryset(genres, year, country)
+        queryset = self.result_queryset(genres, year, country).order_by('year')
         return queryset
 
     def get_context_data(self, *args, **kwargs):
@@ -253,7 +253,6 @@ class VotesView(View):
 
     def post(self, request, pk, slug):
         obj = self.model.objects.get(pk=pk)
-        print(slug, '*' * 100)
         # GenericForeignKey не поддерживает метод get_or_create
         try:
             likedislike = LikeDislike.objects.get(content_type=ContentType.objects.get_for_model(
