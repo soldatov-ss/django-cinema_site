@@ -22,6 +22,7 @@ def browser(request):
     # options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument('--allow-running-insecure-content')
+    options.add_argument('window-size=1400,900')
     options.add_experimental_option('prefs', {'intl.accept_languages': language})
     options.add_argument(f'user-agent={user_agent}')
 

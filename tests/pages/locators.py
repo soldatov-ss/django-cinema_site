@@ -16,4 +16,8 @@ class LoginFormLocators:
 
 
 class MainMenuLocators:
-    Link = 'http://127.0.0.1:8000/en/'
+    Link = 'http://127.0.0.1:8000/'
+
+
+class CatalogLocators:
+    Link = 'http://127.0.0.1:8000/catalog/1/'
